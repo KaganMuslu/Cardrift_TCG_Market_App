@@ -1,0 +1,225 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@* Main Resimler *@
+<div class="card-body">
+	<div id="owl-demo" class="owl-carousel owl-theme owl-img-responsive">
+        <div class="item container">
+            <img class="img-fluid" src="~/user/web1.jpg">
+            <div class="content">
+                <h1>Yugioh: Supreme Darkness</h1>
+                <p>The King is not amused…but he will be – and you will, too!</p>
+            </div>
+        </div>
+        <div class="item container">
+            <img class="img-fluid" src="~/user/web2.jpg">
+            <div class="content">
+                <h1>MTG Universes Beyond</h1>
+                <p>Explore the 100 card mini set of Magic: The Gathering based on the Assassin's Creed Franchise!</p>
+            </div>
+        </div>
+        <div class="item container">
+            <img class="img-fluid" src="~/user/web3.jpg">
+            <div class="content">
+                <h1>Pokemon Stellar Crown</h1>
+                <p>Descend into a world below the surface and discover the true potential of the Terastal phenomenon!</p>
+            </div>
+        </div>
+	</div>
+</div>
+
+<br />
+<br />
+
+@* Tüm Ürünler Kısayolu *@
+<h1 class="text-center">All Products</h1>
+<br />
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card position-relative skew-shadow ">
+            <div class="ratio ratio-16x9">
+                <img src="https://logodix.com/logo/1996523.jpg" class="img-fluid object-fit-cover" />
+            </div>
+            <a asp-controller="Product" asp-action="Product"
+               class="btn btn-black position-absolute top-50 start-50 translate-middle">
+                All Products
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card position-relative skew-shadow ">
+            <div class="ratio ratio-16x9">
+                <img src="https://gimgs2.nohat.cc/thumb/f/640/magic-the-gathering-logo-google-search-magic-the-gathering-mtg--comdlpng6952219.jpg" class="img-fluid object-fit-cover" />
+            </div>
+            <a asp-controller="Product" asp-action="Product"
+               class="btn btn-black position-absolute top-50 start-50 translate-middle">
+                All Products
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card position-relative skew-shadow ">
+            <div class="ratio ratio-16x9">
+                <img src="https://i.etsystatic.com/15285521/r/il/ab1357/2040468149/il_fullxfull.2040468149_lx9n.jpg" class="img-fluid object-fit-cover" />
+            </div>
+            <a asp-controller="Product" asp-action="Product"
+               class="btn btn-black position-absolute top-50 start-50 translate-middle">
+                All Products
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card position-relative skew-shadow ">
+            <div class="ratio ratio-16x9">
+                <img src="https://logos-world.net/wp-content/uploads/2020/05/Pokemon-Symbol.jpg" class="img-fluid object-fit-cover" />
+            </div>
+            <a asp-controller="Product" asp-action="Product"
+               class="btn btn-black position-absolute top-50 start-50 translate-middle">
+                All Products
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+
+@* Sıcak Ürünler *@
+<h1 class ="text-center">Hot Deals!</h1>
+<br />
+
+<div class="row row-card">
+    <div class="col-md-4">
+        <div class="card card-post card-round" >
+            <img class="card-img-top"
+                 src="https://www.yugioh-card.com/en/wp-content/uploads/2024/10/SDWD_550.png"
+                 alt="Card image cap"
+                  />
+            <div class="card-body">
+                <div class="separator-solid"></div>
+                <p class="card-category text-info mb-1">
+                    <a href="#">Yu-Gi-Oh!</a>
+                </p>
+                <h3 class="card-title">
+                    <a href="#"> Structure Deck: Blue-Eyes White Destiny </a>
+                </h3>
+                <p class="card-text">
+                    Prepare yourself for the next chapter of the Blue-Eyes White Dragon strategy: The electrifyingly awesome Blue-Eyes White Destiny Structure Deck!
+                </p>
+                <a href="#" class="btn btn-black btn-rounded btn-sm">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-post card-round" >
+            <img class="card-img-top"
+                 src="https://magicomens.com/cdn/shop/files/dftpre_800x.webp?v=1735643349"
+                 alt="Card image cap" 
+                  />
+            <div class="card-body">
+                <div class="separator-solid"></div>
+                <p class="card-category text-info mb-1">
+                    <a href="#">Magic: The Gathering</a>
+                </p>
+                <h3 class="card-title">
+                    <a href="#"> Aetherspark Bundle and Prerelease Pack </a>
+                </h3>
+                <p class="card-text">
+                    Leave your competition in the dust! Get behind the wheel in Aetherdrift, a multiversal race filled with adrenaline-fueled Magic gameplay across three planes.
+                </p>
+                <a href="#" class="btn btn-black btn-rounded btn-sm">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-post card-round" >
+            <img class="card-img-top"
+                 src="https://media.miniaturemarket.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/b/a/ban2780469.jpg"
+                 alt="Card image cap"
+                  />
+            <div class="card-body">
+                <div class="separator-solid"></div>
+                <p class="card-category text-info mb-1">
+                    <a href="#">Digimon TCG</a>
+                </p>
+                <h3 class="card-title">
+                    <a href="#">
+                        Starter Deck: PROTECTOR OF LIGHT [ST-20]
+                    </a>
+                </h3>
+                <p class="card-text">
+                    The first Starter Decks after the unification of releases will focus on WarGreymon (ST20) and MetalGarurumon (ST21) based on Digimon Adventure.
+                </p>
+                <a href="#" class="btn btn-black btn-rounded btn-sm">Shop Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+@* Kısa Bilgiler *@
+<div class="row row-card-no-pd">
+    <div class="col-sm-6 col-md-4">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="icon-pie-chart text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                        <div class="numbers">
+                            <p class="card-category">New Products</p>
+                            <h4 class="card-title">Continuous product supply</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="icon-wallet text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                        <div class="numbers">
+                            <p class="card-category">Secure System</p>
+                            <h4 class="card-title">Proved trustee system</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="icon-big text-center">
+                            <i class="icon-social-twitter text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-stats">
+                        <div class="numbers">
+                            <p class="card-category">High Demand</p>
+                            <h4 class="card-title">+45K new buyers over 30 countries</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Cardrift___TCG_Market_App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\User\js\**" />
+    <Content Remove="wwwroot\User\js\**" />
+    <EmbeddedResource Remove="wwwroot\User\js\**" />
+    <None Remove="wwwroot\User\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="Areas\User\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+</Project>
