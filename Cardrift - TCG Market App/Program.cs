@@ -1,7 +1,15 @@
+using Cardrift___TCG_Market_App.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var ConnectionString = builder.Configuration.GetConnectionString("MyConnString");
+var version = new MySqlServerVersion(new Version(8, 0, 36));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(ConnectionString, version));
+
 
 var app = builder.Build();
 
