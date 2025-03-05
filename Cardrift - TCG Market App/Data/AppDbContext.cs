@@ -9,6 +9,11 @@ namespace Cardrift___TCG_Market_App.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Card> Cards { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Deck> Decks { get; set; }

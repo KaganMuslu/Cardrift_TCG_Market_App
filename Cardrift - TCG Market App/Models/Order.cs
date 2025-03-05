@@ -9,10 +9,12 @@ namespace Cardrift___TCG_Market_App.Models
         public decimal TotalAmount { get; set; }
         public int Status { get; set; } // Pending, Shipped, Delivered vb.
 
+        #region Navigation Properities
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public List<OrderItem> OrderItems { get; set; } // Siparişin ürünleri
+        public List<OrderItem> OrderItems { get; set; } // Siparişin ürünleri 
+        #endregion
     }
 }

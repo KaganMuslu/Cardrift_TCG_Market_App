@@ -8,11 +8,16 @@ namespace Cardrift___TCG_Market_App.Models
         public string Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public int StockQuantity { get; set; }
 
+        #region Navigation Properities
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public List<Card> Cards { get; set; }
+        public List<Deck> Decks { get; set; }
+        #endregion
     }
 }

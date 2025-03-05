@@ -5,6 +5,8 @@
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<Product> Products { get; set; }
+        #region Navigation Properities
+        public List<Product> Products { get; set; } 
+        #endregion
     }
 }
