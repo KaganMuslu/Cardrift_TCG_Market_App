@@ -1,9 +1,9 @@
-﻿namespace Cardrift___TCG_Market_App.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Cardrift___TCG_Market_App.Models
 {
-    public class Deck
+    public class Deck : Product
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string? Description { get; set; }
+        public List<DeckCard> DeckCards { get; set; }
     }
 }
