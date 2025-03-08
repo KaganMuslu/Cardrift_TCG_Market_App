@@ -29,11 +29,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{area=user}/{controller=Main}/{action=Index}/{id?}");
+    name: "Admin",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "user",
+    name: "User",
     pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{area=user}/{controller=Main}/{action=Index}/{id?}");
 
 app.Run();

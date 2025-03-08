@@ -18,6 +18,7 @@ namespace Cardrift___TCG_Market_App.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Deck> Decks { get; set; }
         public DbSet<DeckCard> DeckCards { get; set; }
+        public DbSet<Game> Games { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Product> Products { get; set; }

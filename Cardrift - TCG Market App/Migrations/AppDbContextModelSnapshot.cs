@@ -112,6 +112,23 @@ namespace Cardrift___TCG_Market_App.Migrations
                     b.ToTable("DeckCards");
                 });
 
+            modelBuilder.Entity("Cardrift___TCG_Market_App.Models.Game", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+                });
+
             modelBuilder.Entity("Cardrift___TCG_Market_App.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -182,6 +199,9 @@ namespace Cardrift___TCG_Market_App.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("longtext");
 
@@ -198,6 +218,8 @@ namespace Cardrift___TCG_Market_App.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("GameId");
 
                     b.ToTable("Products");
                 });
@@ -306,6 +328,12 @@ namespace Cardrift___TCG_Market_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Cardrift___TCG_Market_App.Models.Game", null)
+                        .WithMany("Products")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
                 });
 
@@ -322,6 +350,11 @@ namespace Cardrift___TCG_Market_App.Migrations
             modelBuilder.Entity("Cardrift___TCG_Market_App.Models.Deck", b =>
                 {
                     b.Navigation("DeckCards");
+                });
+
+            modelBuilder.Entity("Cardrift___TCG_Market_App.Models.Game", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Cardrift___TCG_Market_App.Models.Order", b =>

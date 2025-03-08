@@ -11,7 +11,7 @@ namespace Cardrift___TCG_Market_App.Models
         public int Type { get; set; } // Monster, Spell, Trap vb.
         [Required]
         public string Rarity { get; set; } = string.Empty;
-        
+
         #region Navigation Properities
 
         [ForeignKey("Product")]

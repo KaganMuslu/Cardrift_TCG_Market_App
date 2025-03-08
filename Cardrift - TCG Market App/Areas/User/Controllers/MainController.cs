@@ -15,14 +15,21 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
         {
             var categories_count = _context.Categories.ToList().Count;
             var products_count = _context.Categories.ToList().Count;
+            var games_count = _context.Games.ToList().Count;
 
-            if(categories_count == 0 || products_count == 0)
+            if (categories_count == 0 || products_count == 0 || games_count == 0)
             {
+                var game = new Game
+                {
+                    Name = "Yu-Gi-Oh!"
+                };
+
                 var category = new Category
                 {
                     Name = "Card"
                 };
 
+                _context.Add(game);
                 _context.Add(category);
                 _context.SaveChanges();
 
@@ -35,7 +42,8 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                         Price = 29.99m,
                         ImageUrl = "dark-magician.jpg",
                         StockQuantity = 100,
-                        CategoryId = 1
+                        CategoryId = 1,
+                        GameId = 1
                     },
                     Set = "Legend of Blue-Eyes White Dragon",
                     Type = 1,
