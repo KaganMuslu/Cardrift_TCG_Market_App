@@ -111,157 +111,62 @@
                 <div class="sidebar-content">
                     <ul class="nav nav-secondary">
 
-                        @* Edit Data Section *@
+                        @* Data Updates Section *@
                         <li class="nav-section">
                             <span class="sidebar-mini-icon">
                                 <i class="fa fa-ellipsis-h"></i>
                             </span>
-                            <h4 class="text-section">Data</h4>
+                            <h4 class="text-section">Data Updates</h4>
                         </li>
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#editgames">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Games</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="editgames">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="Admin" asp-controller="Data" asp-action="Data" asp-route-category="all-games">
-                                            <span class="sub-item">All Games</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="structures" >
-                                            <span class="sub-item">Add Game</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="decks" >
-                                            <span class="sub-item">Edit Game</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="cores" >
-                                            <span class="sub-item">Delete Game</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#editcategories">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Categories</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="editcategories">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="singles">
-                                            <span class="sub-item">All Categories</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="structures">
-                                            <span class="sub-item">Add Category</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="decks">
-                                            <span class="sub-item">Edit Category</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="cores">
-                                            <span class="sub-item">Delete Category</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#editproducts">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Products</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="editproducts">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="singles">
-                                            <span class="sub-item">All Products</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="structures">
-                                            <span class="sub-item">Add Product</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="decks">
-                                            <span class="sub-item">Edit Product</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="cores">
-                                            <span class="sub-item">Delete Product</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#editcards">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Cards</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="editcards">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="singles">
-                                            <span class="sub-item">All Card</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="structures">
-                                            <span class="sub-item">Add Card</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="decks">
-                                            <span class="sub-item">Edit Card</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="cores">
-                                            <span class="sub-item">Delete Card</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        @* Users Section *@
-                        <li class="nav-section">
-                            <span class="sidebar-mini-icon">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </span>
-                            <h4 class="text-section">Users</h4>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="product" asp-action="product" asp-route-category="playmats">
+                            <a asp-area="admin" asp-controller="data" asp-action="games">
                                 <i class="fas fa-angle-right"></i>
-                                <p>Users Transactions</p>
+                                <p>Games</p>
                                 <span class="badge badge-secondary">1</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="product" asp-action="product" asp-route-category="sleeves">
+                            <a asp-area="admin" asp-controller="data" asp-action="cards">
                                 <i class="fas fa-angle-right"></i>
-                                <p>User Info</p>
+                                <p>Cards</p>
+                                <span class="badge badge-secondary">1</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="data" asp-action="products">
+                                <i class="fas fa-angle-right"></i>
+                                <p>Products</p>
+                                <span class="badge badge-secondary">1</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="data" asp-action="categories">
+                                <i class="fas fa-angle-right"></i>
+                                <p>Categories</p>
+                                <span class="badge badge-secondary">1</span>
+                            </a>
+                        </li>
+
+
+                        @* User Updates Section *@
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">User Updates</h4>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="product" asp-action="product" asp-route-category="sleeves">
+                                <i class="fas fa-angle-right"></i>
+                                <p>All Users</p>
                                 <span class="badge badge-success">2</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="product" asp-action="product" asp-route-category="playmats">
+                                <i class="fas fa-angle-right"></i>
+                                <p>Users Transactions</p>
+                                <span class="badge badge-secondary">1</span>
                             </a>
                         </li>
 
@@ -270,19 +175,26 @@
                             <span class="sidebar-mini-icon">
                                 <i class="fa fa-ellipsis-h"></i>
                             </span>
-                            <h4 class="text-section">Statistic</h4>
+                            <h4 class="text-section">Our Statistics</h4>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="product" asp-action="product" asp-route-category="playmats">
+                            <a asp-area="admin" asp-controller="product" asp-action="product" asp-route-category="playmats">
                                 <i class="fas fa-angle-right"></i>
-                                <p>All Transactions</p>
+                                <p>Transaction Statistics</p>
                                 <span class="badge badge-secondary">1</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="product" asp-action="product" asp-route-category="sleeves">
+                            <a asp-area="admin" asp-controller="product" asp-action="product" asp-route-category="sleeves">
                                 <i class="fas fa-angle-right"></i>
-                                <p>Statistics Info</p>
+                                <p>Product Statistics</p>
+                                <span class="badge badge-success">2</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="product" asp-action="product" asp-route-category="sleeves">
+                                <i class="fas fa-angle-right"></i>
+                                <p>Performance Statistics</p>
                                 <span class="badge badge-success">2</span>
                             </a>
                         </li>

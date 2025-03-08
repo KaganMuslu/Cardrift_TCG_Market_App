@@ -10,15 +10,26 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
         }
 
-        [Route("admin/data/{category}")]
-        public IActionResult Data(string category)
+        public IActionResult Games()
         {
-            if (category == "all-games")
-            {
-                var games = _context.Games.ToList();
-            }
-
             return View();
         }
+
+        public IActionResult Cards()
+        {
+            return View();
+        }
+
+        public IActionResult Products()
+        {
+            return View();
+        }
+
+        public IActionResult Categories()
+        {
+            return View();
+        }
+
+
     }
 }
