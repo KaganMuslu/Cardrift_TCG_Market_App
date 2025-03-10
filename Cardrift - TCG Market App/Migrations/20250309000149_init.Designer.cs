@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cardrift___TCG_Market_App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250307231504_init")]
+    [Migration("20250309000149_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -122,6 +122,9 @@ namespace Cardrift___TCG_Market_App.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()

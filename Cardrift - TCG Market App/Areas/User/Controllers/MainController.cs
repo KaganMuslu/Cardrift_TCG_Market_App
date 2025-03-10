@@ -21,7 +21,33 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
             {
                 var game = new Game
                 {
-                    Name = "Yu-Gi-Oh!"
+                    Name = "Yu-Gi-Oh!",
+                    ImageUrl = "https://logodix.com/logo/1996523.jpg"
+                };
+                var game2 = new Game
+                {
+                    Name = "Magic: The Gathering",
+                    ImageUrl = "https://gimgs2.nohat.cc/thumb/f/640/magic-the-gathering-logo-google-search-magic-the-gathering-mtg--comdlpng6952219.jpg"
+                };
+                var game3 = new Game
+                {
+                    Name = "Digimon",
+                    ImageUrl = "https://i.etsystatic.com/15285521/r/il/ab1357/2040468149/il_fullxfull.2040468149_lx9n.jpg"
+                };
+                var game4 = new Game
+                {
+                    Name = "Pokemon",
+                    ImageUrl = "https://logos-world.net/wp-content/uploads/2020/05/Pokemon-Symbol.jpg"
+                };
+                var game5 = new Game
+                {
+                    Name = "Cardfight: Vanguard",
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/18/Vg_new_logo.png"
+                };
+                var game6 = new Game
+                {
+                    Name = "Marvel HeroClix",
+                    ImageUrl = "https://www.nicepng.com/png/detail/306-3067793_guardians-of-the-galaxy-heroclix-now-available-age.png"
                 };
 
                 var category = new Category
@@ -30,6 +56,11 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 };
 
                 _context.Add(game);
+                _context.Add(game2);
+                _context.Add(game3);
+                _context.Add(game4);
+                _context.Add(game5);
+                _context.Add(game6);
                 _context.Add(category);
                 _context.SaveChanges();
 
