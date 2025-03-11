@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Game
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form asp-controller="data" asp-action="addgame" method="post">
+                <div class="card-header">
+                    <div class="card-title">Add New Game</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Game Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Name"
+                                       placeholder="Enter Game Name" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="ImageUrl"
+                                       placeholder="Enter Image URL" />
+                                <br>
+                                <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a asp-controller="data" asp-action="games" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

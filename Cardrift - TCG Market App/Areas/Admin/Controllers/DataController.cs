@@ -1,4 +1,5 @@
 ﻿using Cardrift___TCG_Market_App.Data;
+using Cardrift___TCG_Market_App.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
@@ -32,6 +33,27 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             return View(games);
         }
+
+        public IActionResult AddGame()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddGame(Game game)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(game);
+                _context.SaveChanges();
+
+                return RedirectToAction("games");
+            }
+
+            return View(game);
+            
+        }
+
 
         public IActionResult Cards()
         {

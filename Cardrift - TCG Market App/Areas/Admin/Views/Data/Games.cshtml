@@ -22,7 +22,7 @@
             </div>
         </nav>
         <div>
-            <a class="btn btn-secondary">
+            <a asp-controller="data" asp-action="addgame" class="btn btn-secondary">
                 <span class="btn-label">
                     <i class="fa fa-plus"></i>
                 </span>
@@ -41,7 +41,9 @@
         <div class="col-md-3 d-flex">
             <div class="card card-post card-round d-flex flex-column">
                 <img src="@game.ImageUrl"
-                alt="@game.Name image cap" />
+                     alt="@game.Name image cap"
+                     class="card-img-top"
+                     style="height: 200px; object-fit: cover;" />
                 <div class="card-body d-flex flex-column">
                     <h3 class="card-title">
                         <a href="#"> @game.Name </a>
