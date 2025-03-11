@@ -7,7 +7,7 @@ namespace Cardrift___TCG_Market_App.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string? ImageUrl { get; set; } = "https://cdn.spruceindustries.com/images/no_image_available.png";
+        public string? ImageUrl { get; set; }
 
         #region Navigation Properities
 

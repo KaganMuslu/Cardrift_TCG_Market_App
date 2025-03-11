@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cardrift___TCG_Market_App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250309000149_init")]
+    [Migration("20250311005525_init")]
     partial class init
     {
         /// <inheritdoc />

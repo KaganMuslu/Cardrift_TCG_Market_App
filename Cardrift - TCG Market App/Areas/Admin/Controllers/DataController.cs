@@ -42,8 +42,18 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddGame(Game game)
         {
+            if (_context.Games.FirstOrDefault(x => x.Name == game.Name) != null)
+            {
+                ModelState.AddModelError("Name", "There is already a game with this name!");
+            }
+
             if (ModelState.IsValid)
             {
+                if (game.ImageUrl == null)
+                {
+                    game.ImageUrl = "https://cdn.spruceindustries.com/images/no_image_available.png";
+                }
+
                 _context.Add(game);
                 _context.SaveChanges();
 
