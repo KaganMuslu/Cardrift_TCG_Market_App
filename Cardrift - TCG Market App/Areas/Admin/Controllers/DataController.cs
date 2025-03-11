@@ -61,7 +61,19 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             }
 
             return View(game);
-            
+        }
+
+        [HttpPost]
+        public IActionResult DeleteGame(int id)
+        {
+            var deleteGame = _context.Games.FirstOrDefault(x => x.Id == id);
+            if (deleteGame != null)
+            {
+                _context.Remove(deleteGame);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("games");
         }
 
 
