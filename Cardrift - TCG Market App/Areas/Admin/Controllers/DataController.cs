@@ -49,15 +49,52 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                if (game.ImageUrl == null)
-                {
-                    game.ImageUrl = "https://cdn.spruceindustries.com/images/no_image_available.png";
-                }
-
                 _context.Add(game);
                 _context.SaveChanges();
 
                 return RedirectToAction("games");
+            }
+
+            return View(game);
+        }
+
+        public IActionResult EditGame(int id)
+        {
+            var editGame = _context.Games.FirstOrDefault(x => x.Id == id);
+            if (editGame == null)
+            {
+                return RedirectToAction("games");
+            }
+
+            return View(editGame);
+        }
+
+        [HttpPost]
+        public IActionResult EditGame(Game game, IFormFile ImageFile)
+        {
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                // Dosya yüklendiyse, ImageUrl'yi güncelle
+                var fileName = Path.GetFileName(ImageFile.FileName);
+                var filePath = Path.Combine("wwwroot/images", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    ImageFile.CopyTo(stream);
+                }
+
+                // URL'yi güncelle
+                game.ImageUrl = "/images/" + fileName;
+            }
+
+            ModelState.Remove("ImageFile");
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(game);
+                _context.SaveChanges();
+
+                return RedirectToAction("games"); ;
             }
 
             return View(game);
