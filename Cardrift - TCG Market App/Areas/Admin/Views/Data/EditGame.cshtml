@@ -30,20 +30,15 @@
                                     <!-- URL alanı -->
                                     <input type="text"
                                            class="form-control"
-                                           id="imageInput"
-                                           name="ImageUrl"
+                                           asp-for="ImageUrl"
                                            placeholder="Enter Image URL or choose a file" />
 
                                     <!-- Dosya yükleme butonu -->
                                     <div class="input-group-append">
                                         <label class="btn btn-outline-secondary mb-0">
                                             Upload
-                                            <input type="file"
-                                                   id="fileInput"
-                                                   name="ImageFile"
-                                                   asp-for="ImageUrl"
-                                                   class="form-control"
-                                                   style="display: none;" />
+                                            <input type="file" id="ImageFile" name="ImageFile" style="display: none;" onchange="console.log('Dosya seçildi')" />
+
                                         </label>
                                     </div>
                                 </div>
