@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Cardrift - TCG Market App/Migrations
+/Cardrift - TCG Market App/wwwroot/images/*
+/.gitignore
+/.gitignore

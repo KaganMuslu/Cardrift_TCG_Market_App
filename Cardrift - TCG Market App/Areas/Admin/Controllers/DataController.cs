@@ -34,18 +34,53 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return View(games);
         }
 
+        #region Game Section
+
         public IActionResult AddGame()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddGame(Game game)
+        public IActionResult AddGame(Game game, IFormFile ImageFile)
         {
             if (_context.Games.FirstOrDefault(x => x.Name == game.Name) != null)
             {
                 ModelState.AddModelError("Name", "There is already a game with this name!");
             }
+            else
+            {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    // Dosya yüklendiyse, ImageUrl'yi güncelle
+                    Random rnd = new Random();
+
+                    string imageName = ImageFile.FileName;
+                    string extension = Path.GetExtension(imageName);
+
+                    string str = "abcdefghijklmnopqrstuvwxyz0123456789";
+                    string fileName = "";
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int x = rnd.Next(str.Length);
+                        fileName = fileName + str[x];
+                    }
+                    fileName += extension;
+
+                    var filePath = Path.Combine("wwwroot/images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+
+                    // URL'yi güncelle
+                    game.ImageUrl = "/images/" + fileName;
+                }
+            }
+
+            ModelState.Remove("ImageFile");
 
             if (ModelState.IsValid)
             {
@@ -75,7 +110,21 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 // Dosya yüklendiyse, ImageUrl'yi güncelle
-                var fileName = Path.GetFileName(ImageFile.FileName);
+                Random rnd = new Random();
+
+                string imageName = ImageFile.FileName;
+                string extension = Path.GetExtension(imageName);
+
+                string str = "abcdefghijklmnopqrstuvwxyz0123456789";
+                string fileName = "";
+
+                for (int i = 0; i < 10; i++)
+                {
+                    int x = rnd.Next(str.Length);
+                    fileName = fileName + str[x];
+                }
+                fileName += extension;
+
                 var filePath = Path.Combine("wwwroot/images", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -113,6 +162,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return RedirectToAction("games");
         }
 
+        #endregion
 
         public IActionResult Cards()
         {
