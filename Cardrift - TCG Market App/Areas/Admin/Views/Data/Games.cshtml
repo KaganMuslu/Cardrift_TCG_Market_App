@@ -7,74 +7,97 @@
 
 @* Search Bar *@
 <div class="row row-card text-center">
-    <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
-        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
-                        <i class="fa fa-search search-icon"></i>
-                    </button>
-                </div>
-                <input type="text"
-                placeholder="Game Search..."
-                class="form-control text-center"
-                style="background-color: #FFFFFF !important;" />
+    <form asp-controller="data" asp-action="games">
+        <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
+            <div>
+                <a asp-controller="data" asp-action="games" class="btn btn-primary">
+                    <span class="btn-label">
+                        <i class="fa fa-home"></i>
+                    </span>
+                    Home
+                </a>
             </div>
-        </nav>
-        <div>
-            <a asp-controller="data" asp-action="addgame" class="btn btn-secondary">
-                <span class="btn-label">
-                    <i class="fa fa-plus"></i>
-                </span>
-                Add Game
-            </a>
+            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
+                            <i class="fa fa-search search-icon"></i>
+                        </button>
+                    </div>
+                    <input type="text"
+                    name="game"
+                    placeholder="Game Search..."
+                    class="form-control text-center"
+                    style="background-color: #FFFFFF !important;" />
+                </div>
+            </nav>
+            <div>
+                <a asp-controller="data" asp-action="addgame" class="btn btn-secondary">
+                    <span class="btn-label">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                    Add Game
+                </a>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <br>
 
 
 <div class="row row-card text-center">
-    @foreach (var game in Model)
+    @if (Model.Count != 0)
     {
-        <div class="col-md-3 d-flex">
-            <div class="card card-post card-round d-flex flex-column">
-                @if (game.ImageUrl != null)
-                {
-                    <img src="@game.ImageUrl"
-                    alt="@game.Name image cap"
-                    class="card-img-top"
-                    style="height: 200px; object-fit: cover;" />
-                }
-                else
-                {
-                    <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
-                         alt="@game.Name image cap"
-                         class="card-img-top"
-                         style="height: 200px; object-fit: cover;" />
-                }
-                
-                <div class="card-body d-flex flex-column">
-                    <h3 class="card-title">
-                        <a href="#"> @game.Name </a>
-                    </h3>
-                    <br>
-                    <div class="mt-auto">
-                        <a href="#" class="btn btn-black btn-rounded btn-sm">Go Products</a>
-                        <form asp-area="admin" asp-controller="data" asp-action="editgame" method="get">
-                            <button type="submit" class="btn btn-secondary btn-rounded btn-sm">Edit Game</button>
-                            <input type="hidden" name="id" value="@game.Id" />
-                        </form>
-                        <form asp-area="admin" asp-controller="data" asp-action="deletegame" method="post">
-                            <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
-                            <input type="hidden" name="id" value="@game.Id" />
-                        </form>
+        @foreach (var game in Model)
+        {
+            <div class="col-md-3 d-flex">
+                <div class="card card-post card-round d-flex flex-column">
+                    @if (game.ImageUrl != null)
+                    {
+                        <img src="@game.ImageUrl"
+                        alt="@game.Name image cap"
+                        class="card-img-top"
+                        style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                        alt="@game.Name image cap"
+                        class="card-img-top"
+                        style="height: 200px; object-fit: cover;" />
+                    }
+
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title">
+                            <a href="#"> @game.Name </a>
+                        </h3>
+                        <br>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-black btn-rounded btn-sm">Go Products</a>
+                            <form asp-area="admin" asp-controller="data" asp-action="editgame" method="get">
+                                <button type="submit" class="btn btn-secondary btn-rounded btn-sm">Edit Game</button>
+                                <input type="hidden" name="id" value="@game.Id" />
+                            </form>
+                            <form asp-area="admin" asp-controller="data" asp-action="deletegame" method="post">
+                                <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
+                                <input type="hidden" name="id" value="@game.Id" />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+        }
+    }
+    else
+    {
+        <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+            <div class="text-center">
+                <h2 class="text-danger">No data found!</h2>
+            </div>
         </div>
     }
+
 </div>
 
 <br />

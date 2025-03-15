@@ -11,25 +11,36 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
         }
 
-        public IActionResult Games(int page)
+        public IActionResult Games(int page, string? game)
         {
             if (page == 0) page = 1;
             ViewBag.page = page;
 
             int skip = (page - 1) * 8;
-            var games = _context.Games.Skip(skip).Take(8).ToList();
 
-            int nextSkip = page * 8;
-            var next = _context.Games.Skip(nextSkip).Count();
+            List<Game> games;
+            int next;
 
-            if (next > 0)
+            if (string.IsNullOrEmpty(game))
             {
-                ViewBag.next = true;
+                // Arama yoksa tüm oyunları getir
+                games = _context.Games.Skip(skip).Take(8).ToList();
+
+                // Bir sonraki sayfada eleman var mı kontrol et
+                next = _context.Games.Skip(page * 8).Count();
             }
             else
             {
-                ViewBag.next = false;
+                // Arama varsa filtreli sonuçları getir
+                var searchGame = _context.Games.Where(x => x.Name.Contains(game));
+
+                games = searchGame.Skip(skip).Take(8).ToList();
+
+                // Filtreli sonuçlar için next kontrolü
+                next = searchGame.Skip(page * 8).Count();
             }
+
+            ViewBag.next = next > 0;
 
             return View(games);
         }
