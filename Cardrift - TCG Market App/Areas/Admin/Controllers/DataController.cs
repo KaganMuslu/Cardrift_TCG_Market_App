@@ -1,6 +1,8 @@
 ﻿using Cardrift___TCG_Market_App.Data;
 using Cardrift___TCG_Market_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 {
@@ -11,41 +13,42 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
         }
 
-        public IActionResult Games(int page, string? game)
+        private List<T> PagedData<T>(int page, string? searchTerm) where T : class
         {
-            if (page == 0) page = 1;
-            ViewBag.page = page;
+            if (page < 1) page = 1; // Sayfa numarası 0 veya negatifse düzelt
 
             int skip = (page - 1) * 8;
 
-            List<Game> games;
-            int next;
+            // Sorgu oluşturur, ancak anında çalıştırmaz
+            IQueryable<T> query = _context.Set<T>(); // Dinamik tablo seçimi
 
-            if (string.IsNullOrEmpty(game))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                // Arama yoksa tüm oyunları getir
-                games = _context.Games.Skip(skip).Take(8).ToList();
-
-                // Bir sonraki sayfada eleman var mı kontrol et
-                next = _context.Games.Skip(page * 8).Count();
-            }
-            else
-            {
-                // Arama varsa filtreli sonuçları getir
-                var searchGame = _context.Games.Where(x => x.Name.Contains(game));
-
-                games = searchGame.Skip(skip).Take(8).ToList();
-
-                // Filtreli sonuçlar için next kontrolü
-                next = searchGame.Skip(page * 8).Count();
+                query = query.Where(x => EF.Property<string>(x, "Name").Contains(searchTerm)); // Dinamik arama
             }
 
-            ViewBag.next = next > 0;
+            List<T> data = query.Skip(skip).Take(8).ToList(); // Sayfalama
+
+            // Sonraki sayfa kontrolü
+            bool hasNext = query.Skip(page * 8).Any();
+
+            ViewBag.next = hasNext;
+            ViewBag.page = page;
+
+            return data;
+        }
+
+
+
+        #region Game Section
+
+        public IActionResult Games(int page, string? searchTerm)
+        {
+            var games = PagedData<Game>(page, searchTerm);
+
 
             return View(games);
         }
-
-        #region Game Section
 
         public IActionResult AddGame()
         {
@@ -175,15 +178,28 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
+        #region Products Section
+
+        public IActionResult Products(int page, string? searchTerm)
+        {
+            var products = PagedData<Product>(page, searchTerm);
+
+
+            return View(products);
+        }
+
+        #endregion
+
+        #region Cards Section
+
         public IActionResult Cards()
         {
             return View();
         }
 
-        public IActionResult Products()
-        {
-            return View();
-        }
+        #endregion
+
+        
 
         public IActionResult Categories()
         {
