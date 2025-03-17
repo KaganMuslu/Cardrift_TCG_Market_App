@@ -38,6 +38,25 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return data;
         }
 
+        // Rastgele resim ismi üretme
+        private string GenerateUniqueFileName(string originalFileName)
+        {
+            Random rnd = new Random();
+            string extension = Path.GetExtension(originalFileName);
+
+            string str = "abcdefghijklmnopqrstuvwxyz0123456789";
+            string fileName = "";
+
+            for (int i = 0; i < 10; i++)
+            {
+                int x = rnd.Next(str.Length);
+                fileName += str[x];
+            }
+
+            return fileName + extension;
+        }
+
+
 
 
         #region Game Section
@@ -66,21 +85,8 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    // Dosya yüklendiyse, ImageUrl'yi güncelle
-                    Random rnd = new Random();
-
                     string imageName = ImageFile.FileName;
-                    string extension = Path.GetExtension(imageName);
-
-                    string str = "abcdefghijklmnopqrstuvwxyz0123456789";
-                    string fileName = "";
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        int x = rnd.Next(str.Length);
-                        fileName = fileName + str[x];
-                    }
-                    fileName += extension;
+                    string fileName = GenerateUniqueFileName(imageName);
 
                     var filePath = Path.Combine("wwwroot/images", fileName);
 
@@ -187,6 +193,55 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             return View(products);
         }
+
+        public IActionResult AddProduct()
+        {
+            var categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product product, IFormFile ImageFile)
+        {
+            if (_context.Products.FirstOrDefault(x => x.Name == product.Name) != null)
+            {
+                ModelState.AddModelError("Name", "There is already a product with this name!");
+            }
+            else
+            {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    string imageName = ImageFile.FileName;
+                    string fileName = GenerateUniqueFileName(imageName);
+
+                    var filePath = Path.Combine("wwwroot/images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+
+                    // URL'yi güncelle
+                    product.ImageUrl = "/images/" + fileName;
+                }
+            }
+
+            ModelState.Remove("ImageFile");
+            ModelState.Remove("Category");
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(product);
+                _context.SaveChanges();
+
+                return RedirectToAction("products");
+            }
+
+            return RedirectToAction("AddProduct");
+        }
+
 
         #endregion
 

@@ -18,7 +18,7 @@ namespace Cardrift___TCG_Market_App.Models
         #region Navigation Properities
 
         [ForeignKey("Game")]
-        public int GameId { get; set; }
+        public int? GameId { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
