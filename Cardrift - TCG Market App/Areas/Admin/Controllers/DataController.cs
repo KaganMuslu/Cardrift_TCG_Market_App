@@ -13,6 +13,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
         }
 
+        // Pagedli sayfalama
         private List<T> PagedData<T>(int page, string? searchTerm) where T : class
         {
             if (page < 1) page = 1; // Sayfa numarası 0 veya negatifse düzelt
@@ -38,9 +39,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return data;
         }
 
-        // Rastgele resim ismi üretme
-        private string GenerateUniqueFileName(string originalFileName)
+        // Rastgele resim ismi üretme ve kaydetme
+        private string UniqueFileNameCopy(IFormFile ImageFile)
         {
+            string originalFileName = ImageFile.FileName;
+
             Random rnd = new Random();
             string extension = Path.GetExtension(originalFileName);
 
@@ -51,6 +54,13 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 int x = rnd.Next(str.Length);
                 fileName += str[x];
+            }
+
+            var filePath = Path.Combine("wwwroot/images", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                ImageFile.CopyTo(stream);
             }
 
             return fileName + extension;
@@ -85,15 +95,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    string imageName = ImageFile.FileName;
-                    string fileName = GenerateUniqueFileName(imageName);
-
-                    var filePath = Path.Combine("wwwroot/images", fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        ImageFile.CopyTo(stream);
-                    }
+                    string fileName = UniqueFileNameCopy(ImageFile);
 
                     // URL'yi güncelle
                     game.ImageUrl = "/images/" + fileName;
@@ -129,28 +131,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
             if (ImageFile != null && ImageFile.Length > 0)
             {
-                // Dosya yüklendiyse, ImageUrl'yi güncelle
-                Random rnd = new Random();
-
-                string imageName = ImageFile.FileName;
-                string extension = Path.GetExtension(imageName);
-
-                string str = "abcdefghijklmnopqrstuvwxyz0123456789";
-                string fileName = "";
-
-                for (int i = 0; i < 10; i++)
-                {
-                    int x = rnd.Next(str.Length);
-                    fileName = fileName + str[x];
-                }
-                fileName += extension;
-
-                var filePath = Path.Combine("wwwroot/images", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    ImageFile.CopyTo(stream);
-                }
+                string fileName = UniqueFileNameCopy(ImageFile);
 
                 // URL'yi güncelle
                 game.ImageUrl = "/images/" + fileName;
@@ -190,14 +171,16 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
             var products = PagedData<Product>(page, searchTerm);
 
-
             return View(products);
         }
 
         public IActionResult AddProduct()
         {
             var categories = _context.Categories.ToList();
+            var games = _context.Games.ToList();
+
             ViewBag.Categories = categories;
+            ViewBag.Games = games;
 
             return View();
         }
@@ -213,15 +196,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    string imageName = ImageFile.FileName;
-                    string fileName = GenerateUniqueFileName(imageName);
-
-                    var filePath = Path.Combine("wwwroot/images", fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        ImageFile.CopyTo(stream);
-                    }
+                    string fileName = UniqueFileNameCopy(ImageFile);
 
                     // URL'yi güncelle
                     product.ImageUrl = "/images/" + fileName;
@@ -239,7 +214,13 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return RedirectToAction("products");
             }
 
-            return RedirectToAction("AddProduct");
+            var categories = _context.Categories.ToList();
+            var games = _context.Games.ToList();
+
+            ViewBag.Categories = categories;
+            ViewBag.Games = games;
+
+            return View(product);
         }
 
 
