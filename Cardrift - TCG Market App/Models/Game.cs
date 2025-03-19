@@ -5,7 +5,7 @@ namespace Cardrift___TCG_Market_App.Models
     public class Game
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Game name is required!")]
         public string Name { get; set; }
         public string? ImageUrl { get; set; }
 

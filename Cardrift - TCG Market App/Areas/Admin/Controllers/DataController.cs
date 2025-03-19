@@ -69,7 +69,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
 
 
-        #region Game Section
+    #region Game Section
 
         public IActionResult Games(int page, string? searchTerm)
         {
@@ -87,32 +87,26 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddGame(Game game, IFormFile ImageFile)
         {
-            if (_context.Games.FirstOrDefault(x => x.Name == game.Name) != null)
-            {
-                ModelState.AddModelError("Name", "There is already a game with this name!");
-            }
-            else
-            {
-                if (ImageFile != null && ImageFile.Length > 0)
-                {
-                    string fileName = UniqueFileNameCopy(ImageFile);
-
-                    // URL'yi güncelle
-                    game.ImageUrl = "/images/" + fileName;
-                }
-            }
-
             ModelState.Remove("ImageFile");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(game);
-                _context.SaveChanges();
-
-                return RedirectToAction("games");
+                return View(game);
             }
 
-            return View(game);
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = UniqueFileNameCopy(ImageFile);
+
+                // URL'yi güncelle
+                game.ImageUrl = "/images/" + fileName;
+            }
+
+            _context.Add(game);
+            _context.SaveChanges();
+
+            return RedirectToAction("games");
+
         }
 
         public IActionResult EditGame(int id)
@@ -129,6 +123,13 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult EditGame(Game game, IFormFile ImageFile)
         {
+            ModelState.Remove("ImageFile");
+
+            if (!ModelState.IsValid)
+            {
+                return View(game);
+            }
+
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = UniqueFileNameCopy(ImageFile);
@@ -137,17 +138,10 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 game.ImageUrl = "/images/" + fileName;
             }
 
-            ModelState.Remove("ImageFile");
+            _context.Update(game);
+            _context.SaveChanges();
 
-            if (ModelState.IsValid)
-            {
-                _context.Update(game);
-                _context.SaveChanges();
-
-                return RedirectToAction("games"); ;
-            }
-
-            return View(game);
+            return RedirectToAction("games"); ;
         }
 
         [HttpPost]
@@ -165,7 +159,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
-        #region Products Section
+    #region Products Section
 
         public IActionResult Products(int page, string? searchTerm)
         {
@@ -188,29 +182,37 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddProduct(Product product, IFormFile ImageFile)
         {
-            if (_context.Products.FirstOrDefault(x => x.Name == product.Name) != null)
-            {
-                ModelState.AddModelError("Name", "There is already a product with this name!");
-            }
-            else
-            {
-                if (ImageFile != null && ImageFile.Length > 0)
-                {
-                    string fileName = UniqueFileNameCopy(ImageFile);
-
-                    // URL'yi güncelle
-                    product.ImageUrl = "/images/" + fileName;
-                }
-            }
-
             ModelState.Remove("ImageFile");
             ModelState.Remove("Category");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(product);
-                _context.SaveChanges();
+                ViewBag.Categories = _context.Categories.ToList();
+                ViewBag.Games = _context.Games.ToList();
 
+                return View(product);
+            }
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = UniqueFileNameCopy(ImageFile);
+
+                // URL'yi güncelle
+                product.ImageUrl = "/images/" + fileName;
+            }
+
+            _context.Add(product);
+            _context.SaveChanges();
+
+            return RedirectToAction("products");
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            var product = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+
+            if (product == null)
+            {
                 return RedirectToAction("products");
             }
 
@@ -223,8 +225,36 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return View(product);
         }
 
+        [HttpPost]
+        public IActionResult EditProduct(Product product, IFormFile ImageFile)
+        {
+            ModelState.Remove("ImageFile");
+            ModelState.Remove("Category");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories.ToList();
+                ViewBag.Games = _context.Games.ToList();
+
+                return View(product);
+            }
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = UniqueFileNameCopy(ImageFile);
+
+                // URL'yi güncelle
+                product.ImageUrl = "/images/" + fileName;
+            }
+
+            _context.Update(product);
+            _context.SaveChanges();
+
+            return RedirectToAction("products");
+        }
 
         #endregion
+
 
         #region Cards Section
 
@@ -233,15 +263,19 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return View();
         }
 
-        #endregion
+    #endregion
 
-        
+
+    #region Categories Section
 
         public IActionResult Categories()
-        {
-            return View();
-        }
+                {
+                    return View();
+                }
 
+
+    #endregion
+        
 
     }
 }

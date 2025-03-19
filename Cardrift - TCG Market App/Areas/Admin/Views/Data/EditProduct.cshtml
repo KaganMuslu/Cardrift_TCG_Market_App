@@ -1,0 +1,121 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Product
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form asp-controller="data" asp-action="editproduct" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                <div class="card-header">
+                    <div class="card-title">Edit Product</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Product Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Name"
+                                       placeholder="Product Name" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="imageInput">Image</label>
+                                <div class="input-group">
+                                    <!-- URL alanı -->
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="ImageUrl"
+                                           placeholder="Image URL or choose a file" />
+
+                                    <!-- Dosya yükleme butonu -->
+                                    <div class="input-group-append">
+                                        <label class="btn btn-outline-secondary mb-0">
+                                            Upload
+                                            <input type="file" id="ImageFile" name="ImageFile" style="display: none;" onchange="console.log('Dosya seçildi')" />
+
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Description">Product Description</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Description"
+                                       placeholder="Product Description" />
+                                <span class="text-danger" asp-validation-for="Description"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Product Price</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Price"
+                                       placeholder="Product Price" />
+                                <span class="text-danger" asp-validation-for="Price"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="StockQuantity">Product Game</label>
+                                <select class="form-select"
+                                        asp-for="GameId"
+                                        required>
+                                    <option value="0">None</option>
+                                    @foreach (var game in ViewBag.Games)
+                                    {
+                                        <option value="@game.Id">@game.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="StockQuantity">Product Category</label>
+                                <select class="form-select"
+                                        asp-for="CategoryId"
+                                        required>
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="StockQuantity">Product Stock Quantity</label>
+                                <input type="number"
+                                       class="form-control"
+                                       asp-for="StockQuantity"
+                                       placeholder="Product Stock Quantity" />
+                                <span class="text-danger" asp-validation-for="StockQuantity"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-action text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a asp-controller="data" asp-action="products" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
