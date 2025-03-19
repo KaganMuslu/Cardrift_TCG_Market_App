@@ -35,6 +35,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         public List<Card>? Cards { get; set; } = new();
         public List<Deck>? Decks { get; set; } = new();
+        public List<Game>? Games { get; set; } = new();
 
         #endregion
     }
