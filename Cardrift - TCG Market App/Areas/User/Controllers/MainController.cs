@@ -71,7 +71,7 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                         Name = "Dark Magician",
                         Description = "The ultimate wizard in terms of attack and defense.",
                         Price = 29.99m,
-                        ImageUrl = "dark-magician.jpg",
+                        ImageUrl = "https://images.ygoprodeck.com/images/cards/46986414.jpg",
                         StockQuantity = 100,
                         CategoryId = 1,
                         GameId = 1

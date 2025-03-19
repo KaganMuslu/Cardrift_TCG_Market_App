@@ -6,12 +6,14 @@ namespace Cardrift___TCG_Market_App.Models
     {
         public int Id { get; set; }
 
-        #region Navigation Properities
+        #region Navigation Properties
+
         [ForeignKey("Product")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        public List<DeckCard>? DeckCards { get; set; }
+        public List<DeckCard>? DeckCards { get; set; } = new();
+
         #endregion
     }
 }

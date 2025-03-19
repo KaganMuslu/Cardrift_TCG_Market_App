@@ -6,26 +6,35 @@ namespace Cardrift___TCG_Market_App.Models
     public class Product
     {
         public int Id { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Product name is required!")]
+        [StringLength(100, ErrorMessage = "Product name must be at most 100 characters!")]
         public string Name { get; set; }
+
         public string? Description { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Price is required!")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero!")]
         public decimal Price { get; set; }
+
         public string? ImageUrl { get; set; } = "https://cdn.spruceindustries.com/images/no_image_available.png";
-        [Required]
+
+        [Required(ErrorMessage = "Stock quantity is required!")]
+        [Range(0, int.MaxValue, ErrorMessage = "Stock quantity cannot be negative!")]
         public int StockQuantity { get; set; }
 
-        #region Navigation Properities
+        #region Navigation Properties
 
         [ForeignKey("Game")]
         public int? GameId { get; set; }
 
         [ForeignKey("Category")]
+        [Required(ErrorMessage = "Category is required!")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public List<Card>? Cards { get; set; }
-        public List<Deck>? Decks { get; set; }
+        public List<Card>? Cards { get; set; } = new();
+        public List<Deck>? Decks { get; set; } = new();
 
         #endregion
     }

@@ -56,7 +56,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 fileName += str[x];
             }
 
-            var filePath = Path.Combine("wwwroot/images", fileName);
+            var filePath = Path.Combine("wwwroot/images", fileName + extension);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

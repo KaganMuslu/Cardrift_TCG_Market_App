@@ -6,19 +6,23 @@ namespace Cardrift___TCG_Market_App.Models
     public class Card
     {
         public int Id { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Set is required!")]
         public string Set { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Card type is required!")]
         public int Type { get; set; } // Monster, Spell, Trap vb.
-        [Required]
+
+        [Required(ErrorMessage = "Rarity is required!")]
         public string Rarity { get; set; } = string.Empty;
 
-        #region Navigation Properities
+        #region Navigation Properties
 
         [ForeignKey("Product")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        public List<DeckCard> DeckCards { get; set; } 
+        public List<DeckCard> DeckCards { get; set; } = new();
 
         #endregion
     }
