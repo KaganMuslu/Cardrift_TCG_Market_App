@@ -33,7 +33,6 @@ namespace Cardrift___TCG_Market_App.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public List<Card>? Cards { get; set; } = new();
         public List<Deck>? Decks { get; set; } = new();
         public List<Game>? Games { get; set; } = new();
 

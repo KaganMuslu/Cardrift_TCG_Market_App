@@ -305,9 +305,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
     #region Cards Section
 
-        public IActionResult Cards()
+        public IActionResult Cards(int page, string? searchTerm)
         {
-            return View();
+            var cards = PagedData<Card>(page, searchTerm);
+
+            return View(cards);
         }
 
     #endregion

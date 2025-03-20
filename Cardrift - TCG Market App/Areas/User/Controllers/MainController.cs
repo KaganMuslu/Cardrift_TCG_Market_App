@@ -1,6 +1,7 @@
 ﻿using Cardrift___TCG_Market_App.Data;
 using Cardrift___TCG_Market_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 {
@@ -64,23 +65,30 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 _context.Add(category);
                 _context.SaveChanges();
 
-                var card = new Card
+                var product = new Product
                 {
-                    Product = new Product // Burada Product'ı direkt oluşturuyoruz
-                    {
-                        Name = "Dark Magician",
-                        Description = "The ultimate wizard in terms of attack and defense.",
-                        Price = 29.99m,
-                        ImageUrl = "https://images.ygoprodeck.com/images/cards/46986414.jpg",
-                        StockQuantity = 100,
-                        CategoryId = 1,
-                        GameId = 1
-                    },
-                    Set = "Legend of Blue-Eyes White Dragon",
-                    Type = 1,
-                    Rarity = "Ultra Rare"
+                    Name = "Structure Deck: Blue-Eyes White Destiny",
+                    Description = "Prepare yourself for the next chapter of the Blue-Eyes White Dragon strategy: The electrifyingly awesome Blue-Eyes White Destiny Structure Deck!",
+                    Price = 11.9m,
+                    ImageUrl = "https://www.yugioh-card.com/en/wp-content/uploads/2024/10/SDWD_550.png",
+                    StockQuantity = 36,
+                    GameId = 2,
+                    CategoryId = 1
                 };
 
+                _context.Add(product);
+
+                var card = new Card
+                {
+                    Name = "Ukiyoe-P.U.N.K. Amazing Dragon",
+                    Price = 0.63m,
+                    ImageUrl = "https://images.ygoprodeck.com/images/cards/44708154.jpg",
+                    StockQuantity = 21,
+                    GameId = 1,
+                    Set = "Battles of Legend: Monstrous Revenge",
+                    Type = 1,
+                    Rarity = "Secret Rare"
+                };
                 _context.Add(card);
                 _context.SaveChanges();
             }

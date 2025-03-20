@@ -14,6 +14,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         #region Navigation Properties
         public List<Product>? Products { get; set; } = new();
+        public List<Card>? Cards { get; set; } = new();
         #endregion
     }
 }
