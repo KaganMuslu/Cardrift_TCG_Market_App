@@ -51,45 +51,42 @@
     {
         @foreach (var card in Model)
         {
-            <div class="col-md-3 d-flex">
-                <div class="card card-post card-round d-flex flex-column">
+            <div class="col-md-6 d-flex align-items-stretch">
+                <div class="card card-post card-round d-flex flex-row align-items-center w-100">
                     @if (card.ImageUrl != null)
                     {
                         <img src="@card.ImageUrl"
                              alt="@card.Name image cap"
-                             class="card-img-top"
-                             style="height: 200px; object-fit: cover;" />
+                             class="card-img-left"
+                             style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
                     }
                     else
                     {
                         <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
                              alt="@card.Name image cap"
-                             class="card-img-top"
-                             style="height: 200px; object-fit: cover;" />
+                             class="card-img-left"
+                             style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
                     }
 
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body d-flex flex-column justify-content-between h-100" style="flex: 1; display: flex;">
                         <h3 class="card-title">
                             <a href="#"> @card.Name </a>
                         </h3>
-                        <div class="card-footer">
+                        <div>
                             <div class="title" style="font-weight:bold">@card.Set</div>
-                            <div class="card-footer">
-                            </div>
                             <div class="title" style="font-weight:bold">@card.Rarity</div>
-                            <div class="row user-stats text-center">
-                                <div class="col">
-                                    <div class="title">Price</div>
-                                    <div class="number">56</div>
-                                </div>
-                                <div class="col">
-                                    <div class="title">Stock</div>
-                                    <div class="number">@card.StockQuantity</div>
-                                </div>
+                        </div>
+                        <div class="row user-stats text-center">
+                            <div class="col">
+                                <div class="title">Price</div>
+                                <div class="number">56</div>
+                            </div>
+                            <div class="col">
+                                <div class="title">Stock</div>
+                                <div class="number">@card.StockQuantity</div>
                             </div>
                         </div>
-                        <br>
-                        <div class="row user-stats text-center">
+                        <div class="row user-stats text-center mt-2">
                             <div class="col">
                                 <a href="#" class="btn btn-black btn-rounded btn-sm">Go Cards</a>
                             </div>
@@ -99,15 +96,18 @@
                                     <input type="hidden" name="id" value="@card.Id" />
                                 </form>
                             </div>
-                            <form asp-area="admin" asp-controller="data" asp-action="deletecard" method="post">
-                                <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
-                                <input type="hidden" name="id" value="@card.Id" />
-                            </form>
+                            <div class="col">
+                                <form asp-area="admin" asp-controller="data" asp-action="deletecard" method="post">
+                                    <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
+                                    <input type="hidden" name="id" value="@card.Id" />
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         }
+
     }
     else
     {

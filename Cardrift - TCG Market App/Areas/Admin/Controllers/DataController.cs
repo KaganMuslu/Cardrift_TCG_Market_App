@@ -312,10 +312,54 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return View(cards);
         }
 
-    #endregion
+        public IActionResult AddCard()
+        {
+            ViewBag.Games = _context.Games.ToList();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCard(Card card, IFormFile ImageFile)
+        {
+            ModelState.Remove("ImageFile");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Games = _context.Games.ToList();
+
+                return View(card);
+            }
+
+            var sameName = _context.Cards.Where(x => x.Name == card.Name && x.Id != card.Id && card.Set == x.Set && card.Rarity == x.Rarity).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This name is already in use!");
+
+                ViewBag.Games = _context.Games.ToList();
+
+                return View(card);
+            }
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = UniqueFileNameCopy(ImageFile);
+
+                // URL'yi güncelle
+                card.ImageUrl = "/images/" + fileName;
+            }
+
+            _context.Add(card);
+            _context.SaveChanges();
+
+            return RedirectToAction("cards");
+        }
 
 
-    #region Categories Section
+        #endregion
+
+
+        #region Categories Section
 
         public IActionResult Categories()
                 {
