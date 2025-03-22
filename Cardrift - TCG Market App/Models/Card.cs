@@ -11,9 +11,6 @@ namespace Cardrift___TCG_Market_App.Models
         [StringLength(100, ErrorMessage = "Card name must be at most 100 characters!")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Set is required!")]
-        public string Set { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "Card type is required!")]
         public int Type { get; set; } // Monster, Spell, Trap vb.
 
@@ -32,7 +29,12 @@ namespace Cardrift___TCG_Market_App.Models
         #region Navigation Properties
 
         [ForeignKey("Game")]
-        public int? GameId { get; set; }
+        public int GameId { get; set; }
+        public Game Game { get; set; }
+
+        [ForeignKey("Set")]
+        public int SetId { get; set; }
+        public Set Set { get; set; }
 
         public List<DeckCard> DeckCards { get; set; } = new();
 

@@ -78,18 +78,68 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 
                 _context.Add(product);
 
-                var card = new Card
+                var set1 = new Set
+                {
+                    Name = "Battles of Legend: Monstrous Revenge",
+                    GameId= 1
+                };
+
+                var set2 = new Set
+                {
+                    Name = "Legacy of Destruction",
+                    GameId = 1
+                };
+
+                var set3 = new Set
+                {
+                    Name = "Battles of Legend: Crystal Revenge",
+                    GameId = 1
+                };
+
+                _context.Add(set1);
+                _context.Add(set2);
+                _context.Add(set3);
+                _context.SaveChanges();
+
+                var card1 = new Card
                 {
                     Name = "Ukiyoe-P.U.N.K. Amazing Dragon",
                     Price = 0.63m,
                     ImageUrl = "https://images.ygoprodeck.com/images/cards/44708154.jpg",
                     StockQuantity = 21,
                     GameId = 1,
-                    Set = "Battles of Legend: Monstrous Revenge",
+                    SetId = 1,
                     Type = 1,
                     Rarity = "Secret Rare"
                 };
-                _context.Add(card);
+
+                var card2 = new Card
+                {
+                    Name = "Flowering Etoile the Melodious Magnificat",
+                    Price = 1.23m,
+                    ImageUrl = "https://images.ygoprodeck.com/images/cards/83793721.jpg",
+                    StockQuantity = 11,
+                    GameId = 1,
+                    SetId = 2,
+                    Type = 1,
+                    Rarity = "Super Rare"
+                };
+
+                var card3 = new Card
+                {
+                    Name = "Blackbeard, the Plunder Patroll Captain",
+                    Price = 0.63m,
+                    ImageUrl = "https://images.ygoprodeck.com/images/cards/67647362.jpg",
+                    StockQuantity = 7,
+                    GameId = 1,
+                    SetId = 3,
+                    Type = 1,
+                    Rarity = "Secret Rare"
+                };
+
+                _context.Add(card1);
+                _context.Add(card2);
+                _context.Add(card3);
                 _context.SaveChanges();
             }
 

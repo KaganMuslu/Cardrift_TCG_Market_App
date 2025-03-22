@@ -20,7 +20,7 @@
             <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
+                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important; z-index:inherit">
                             <i class="fa fa-search search-icon"></i>
                         </button>
                     </div>
@@ -55,10 +55,12 @@
                 <div class="card card-post card-round d-flex flex-row align-items-center w-100">
                     @if (card.ImageUrl != null)
                     {
-                        <img src="@card.ImageUrl"
-                             alt="@card.Name image cap"
-                             class="card-img-left"
-                             style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        <div class="zoom">
+                            <img src="@card.ImageUrl"
+                                 alt="@card.Name image cap"
+                                 class="card-img-left"
+                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        </div>
                     }
                     else
                     {
@@ -73,7 +75,7 @@
                             <a href="#"> @card.Name </a>
                         </h3>
                         <div>
-                            <div class="title" style="font-weight:bold">@card.Set</div>
+                            <div class="title" style="font-weight:bold">@card.Set?.Name</div>
                             <div class="title" style="font-weight:bold">@card.Rarity</div>
                         </div>
                         <div class="row user-stats text-center">

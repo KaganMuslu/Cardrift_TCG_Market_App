@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System.Linq.Expressions;
 
 namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 {
@@ -15,7 +16,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         }
 
         // Pagedli sayfalama
-        private List<T> PagedData<T>(int page, string? searchTerm) where T : class
+        private List<T> PagedData<T>(int page, string? searchTerm, params Expression<Func<T, object>>[] includes) where T : class
         {
             if (page < 1) page = 1; // Sayfa numarası 0 veya negatifse düzelt
 
@@ -23,6 +24,12 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             // Sorgu oluşturur, ancak anında çalıştırmaz
             IQueryable<T> query = _context.Set<T>(); // Dinamik tablo seçimi
+
+            // Include edilen navigation property'leri ekle
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
@@ -307,7 +314,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Cards(int page, string? searchTerm)
         {
-            var cards = PagedData<Card>(page, searchTerm);
+            var cards = PagedData<Card>(page, searchTerm, x => x.Set);
 
             return View(cards);
         }
@@ -315,6 +322,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         public IActionResult AddCard()
         {
             ViewBag.Games = _context.Games.ToList();
+            ViewBag.Sets = _context.Sets.ToList();
 
             return View();
         }
@@ -331,7 +339,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(card);
             }
 
-            var sameName = _context.Cards.Where(x => x.Name == card.Name && x.Id != card.Id && card.Set == x.Set && card.Rarity == x.Rarity).FirstOrDefault();
+            var sameName = _context.Cards.Where(x => x.Name == card.Name && x.Id != card.Id && card.SetId == x.SetId && card.Rarity == x.Rarity).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This name is already in use!");

@@ -48,14 +48,33 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-6">
                             <div class="form-group">
-                                <label for="Set">Card Set</label>
-                                <input type="text"
-                                       class="form-control"
-                                       asp-for="Set"
-                                       placeholder="Card Set" />
-                                <span class="text-danger" asp-validation-for="Set"></span>
+                                <label for="StockQuantity">Card Game</label>
+                                <select class="form-select"
+                                        asp-for="GameId"
+                                        required>
+                                    @foreach (var game in ViewBag.Games)
+                                    {
+                                        <option value="@game.Id">@game.Name</option>
+                                    }
+                                </select>
                             </div>
                         </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Set">Card Set</label>
+                                <select class="form-select"
+                                        asp-for="SetId"
+                                        required>
+                                    @foreach (var set in ViewBag.Sets)
+                                    {
+                                        <option value="@set.Id">@set.Name</option>
+                                    }
+                                </select>
+                                <span class="text-danger" asp-validation-for="SetId"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 col-lg-6">
                             <div class="form-group">
                                 <label for="name">Card Price</label>
@@ -64,22 +83,6 @@
                                        asp-for="Price"
                                        placeholder="Card Price" />
                                 <span class="text-danger" asp-validation-for="Price"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label for="StockQuantity">Card Game</label>
-                                <select class="form-select"
-                                        asp-for="GameId"
-                                        required>
-                                    <option value="0">None</option>
-                                    @foreach (var game in ViewBag.Games)
-                                    {
-                                        <option value="@game.Id">@game.Name</option>
-                                    }
-                                </select>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6">
