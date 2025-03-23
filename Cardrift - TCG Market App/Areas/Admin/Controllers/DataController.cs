@@ -393,6 +393,19 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return RedirectToAction("cards");
         }
 
+        public IActionResult DeleteCard(int id)
+        {
+            var deleteCard = _context.Cards.FirstOrDefault(x => x.Id == id);
+
+            if (deleteCard != null)
+            {
+                _context.Remove(deleteCard);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("cards");
+        }
+
 
         #endregion
 
