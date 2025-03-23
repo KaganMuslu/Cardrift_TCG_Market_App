@@ -1,0 +1,151 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Card
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form asp-controller="data" asp-action="editcard" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                <div class="card-header">
+                    <div class="card-title">Add New Card</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Card Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Name"
+                                       placeholder="Card Name" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="imageInput">Image</label>
+                                <div class="input-group">
+                                    <!-- URL alanı -->
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="ImageUrl"
+                                           placeholder="Image URL or choose a file" />
+
+                                    <!-- Dosya yükleme butonu -->
+                                    <div class="input-group-append">
+                                        <label class="btn btn-outline-secondary mb-0">
+                                            Upload
+                                            <input type="file" id="ImageFile" name="ImageFile" style="display: none;" onchange="console.log('Dosya seçildi')" />
+
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="text-danger" asp-validation-for="ImageUrl"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="StockQuantity">Card Game</label>
+                                <select class="form-select"
+                                        asp-for="GameId"
+                                        required>
+                                    @foreach (var game in ViewBag.Games)
+                                    {
+                                        <option value="@game.Id">@game.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Set">Card Set</label>
+                                <select class="form-select"
+                                        asp-for="SetId"
+                                        required>
+                                    @foreach (var set in ViewBag.Sets)
+                                    {
+                                        <option value="@set.Id">@set.Name</option>
+                                    }
+                                </select>
+                                <span class="text-danger" asp-validation-for="SetId"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Card Price</label>
+                                <input type="number"
+                                       required
+                                       min="0"
+                                       step=".01"
+                                       class="form-control"
+                                       asp-for="Price"
+                                       placeholder="Card Price" />
+                                <span class="text-danger" asp-validation-for="Price"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Type">Card Type</label>
+                                <select class="form-select"
+                                        asp-for="Type"
+                                        required>
+                                    <option value="1">Monster</option>
+                                    <option value="2">Spell</option>
+                                    <option value="3">Trap</option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="Type"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="StockQuantity">Card Stock Quantity</label>
+                                <input type="number"
+                                       class="form-control"
+                                       asp-for="StockQuantity"
+                                       placeholder="Card Stock Quantity" />
+                                <span class="text-danger" asp-validation-for="StockQuantity"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Rarity">Card Rarity</label>
+                                <select class="form-select"
+                                        asp-for="Rarity"
+                                        required>
+                                    <option value="Common">Common</option>
+                                    <option value="Rare">Rare</option>
+                                    <option value="Super Rare">Super Rare</option>
+                                    <option value="Holofoil Rare">Holofoil Rare</option>
+                                    <option value="Ultra Rare">Ultra Rare</option>
+                                    <option value="Secret Rare">Secret Rare</option>
+                                    <option value="Collector's Rare">Collector's Rare</option>
+                                    <option value="Ultimate Rare">Ultimate Rare</option>
+                                    <option value="Gold Rare">Gold Rare</option>
+                                    <option value="Prismatic Secret Rare">Prismatic Secret Rare</option>
+                                    <option value="Ultra Secret Rare">Ultra Secret Rare</option>
+                                    <option value="Holographic Rare">Holographic Rare</option>
+                                    <option value="Parallel Rare">Parallel Rare</option>
+                                    <option value="Duel Terminal Rare">Duel Terminal Rare</option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="Rarity"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-action text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a asp-controller="data" asp-action="cards" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

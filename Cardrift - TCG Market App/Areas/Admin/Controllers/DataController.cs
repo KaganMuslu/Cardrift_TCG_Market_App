@@ -148,13 +148,6 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(game);
             }
 
-            var sameName = _context.Games.Where(x => x.Name == game.Name && x.Id != game.Id).FirstOrDefault();
-            if (sameName != null) 
-            {
-                ModelState.AddModelError("Name", "This name is already in use!");
-                return View(game);
-            }
-
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = UniqueFileNameCopy(ImageFile);
@@ -249,11 +242,8 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return RedirectToAction("products");
             }
 
-            var categories = _context.Categories.ToList();
-            var games = _context.Games.ToList();
-
-            ViewBag.Categories = categories;
-            ViewBag.Games = games;
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Games = _context.Games.ToList();
 
             return View(product);
         }
@@ -266,17 +256,6 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = _context.Categories.ToList();
-                ViewBag.Games = _context.Games.ToList();
-
-                return View(product);
-            }
-
-            var sameName = _context.Products.Where(x => x.Name == product.Name && x.Id != product.Id).FirstOrDefault();
-            if (sameName != null)
-            {
-                ModelState.AddModelError("Name", "This name is already in use!");
-
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.Games = _context.Games.ToList();
 
@@ -348,9 +327,10 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             var sameName = _context.Cards.Where(x => x.Name == card.Name && x.Id != card.Id && card.SetId == x.SetId && card.Rarity == x.Rarity).FirstOrDefault();
             if (sameName != null)
             {
-                ModelState.AddModelError("Name", "This name is already in use!");
+                ModelState.AddModelError("Name", "This card is already exists!");
 
                 ViewBag.Games = _context.Games.ToList();
+                ViewBag.Sets = _context.Sets.ToList();
 
                 return View(card);
             }
@@ -364,6 +344,50 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             }
 
             _context.Add(card);
+            _context.SaveChanges();
+
+            return RedirectToAction("cards");
+        }
+
+        public IActionResult EditCard(int id)
+        {
+            var card = _context.Cards.Where(x => x.Id == id).FirstOrDefault();
+
+            if (card == null)
+            {
+                return RedirectToAction("cards");
+            }
+
+            ViewBag.Games = _context.Games.ToList();
+            ViewBag.Sets = _context.Sets.ToList();
+
+            return View(card);
+        }
+
+        [HttpPost]
+        public IActionResult EditCard(Card card, IFormFile ImageFile)
+        {
+            ModelState.Remove("ImageFile");
+            ModelState.Remove("Game");
+            ModelState.Remove("Set");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Games = _context.Games.ToList();
+                ViewBag.Sets = _context.Sets.ToList();
+
+                return View(card);
+            }
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                string fileName = UniqueFileNameCopy(ImageFile);
+
+                // URL'yi güncelle
+                card.ImageUrl = "/images/" + fileName;
+            }
+
+            _context.Update(card);
             _context.SaveChanges();
 
             return RedirectToAction("cards");
