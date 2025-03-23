@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cardrift___TCG_Market_App.Models
 {
@@ -12,6 +13,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         [Required(ErrorMessage = "Price is required!")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero!")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         #region Navigation Properties

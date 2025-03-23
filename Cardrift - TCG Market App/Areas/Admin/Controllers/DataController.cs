@@ -36,7 +36,10 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 query = query.Where(x => EF.Property<string>(x, "Name").Contains(searchTerm)); // Dinamik arama
             }
 
-            List<T> data = query.Skip(skip).Take(8).ToList(); // Sayfalama
+            List<T> data = query.OrderBy(x => EF.Property<object>(x, "Id"))
+                .Skip(skip)
+                .Take(8)
+                .ToList(); // Sayfalama
 
             // Sonraki sayfa kontrolü
             bool hasNext = query.Skip(page * 8).Any();
@@ -331,10 +334,13 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         public IActionResult AddCard(Card card, IFormFile ImageFile)
         {
             ModelState.Remove("ImageFile");
+            ModelState.Remove("Game");
+            ModelState.Remove("Set");
 
             if (!ModelState.IsValid)
             {
                 ViewBag.Games = _context.Games.ToList();
+                ViewBag.Sets = _context.Sets.ToList();
 
                 return View(card);
             }

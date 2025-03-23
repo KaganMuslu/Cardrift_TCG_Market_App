@@ -19,6 +19,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         [Required(ErrorMessage = "Price is required!")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero!")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; } = "https://cdn.spruceindustries.com/images/no_image_available.png";
 
