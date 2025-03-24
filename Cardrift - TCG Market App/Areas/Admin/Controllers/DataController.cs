@@ -324,7 +324,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(card);
             }
 
-            var sameName = _context.Cards.Where(x => x.Name == card.Name && x.Id != card.Id && card.SetId == x.SetId && card.Rarity == x.Rarity).FirstOrDefault();
+            var sameName = _context.Cards.Where(x => x.Name == card.Name && card.SetId == x.SetId && card.Rarity == x.Rarity).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This card is already exists!");
@@ -407,19 +407,58 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         }
 
 
+    #endregion
+
+
+    #region Categories Section
+
+        public IActionResult Categories(int page, string? searchTerm)
+        {
+            var categories = PagedData<Category>(page, searchTerm);
+
+            return View(categories);
+        }
+
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCategory(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
+            var sameName = _context.Categories.Where(x => x.Name == category.Name).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This category is already exists!");
+
+                return View(category);
+            }
+
+            _context.Add(category);
+            _context.SaveChanges();
+
+            return RedirectToAction("categories");
+        }
+
+
         #endregion
 
+        #region Sets Section
 
-        #region Categories Section
-
-        public IActionResult Categories()
-                {
-                    return View();
-                }
+        public IActionResult Sets()
+        {
+            return View();
+        }
 
 
     #endregion
-        
+
 
     }
 }
