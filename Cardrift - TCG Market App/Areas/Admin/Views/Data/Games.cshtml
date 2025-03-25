@@ -3,6 +3,13 @@
 *@
 @model List<Game>
 
+<style>
+    .btn-fixed {
+        min-width: 85px; /* Tüm butonları eşit genişlikte yapar */
+        text-align: center;
+    }
+</style>
+
 <br>
 
 @* Search Bar *@
@@ -73,16 +80,22 @@
                             <a href="#"> @game.Name </a>
                         </h3>
                         <br>
-                        <div class="mt-auto">
-                            <a href="#" class="btn btn-black btn-rounded btn-sm">Go Products</a>
-                            <form asp-area="admin" asp-controller="data" asp-action="editgame" method="get">
-                                <button type="submit" class="btn btn-secondary btn-rounded btn-sm">Edit Game</button>
-                                <input type="hidden" name="id" value="@game.Id" />
-                            </form>
-                            <form asp-area="admin" asp-controller="data" asp-action="deletegame" method="post">
-                                <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
-                                <input type="hidden" name="id" value="@game.Id" />
-                            </form>
+                        <div class="row user-stats text-center mt-2">
+                            <div class="col">
+                                <a href="#" class="btn btn-black btn-rounded btn-sm btn-fixed">Go Products</a>
+                            </div>
+                            <div class="col">
+                                <form asp-area="admin" asp-controller="data" asp-action="editgame" method="get">
+                                    <button type="submit" class="btn btn-secondary btn-rounded btn-sm btn-fixed">Edit Game</button>
+                                    <input type="hidden" name="id" value="@game.Id" />
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form asp-area="admin" asp-controller="data" asp-action="deletegame" method="post">
+                                    <button type="submit" class="btn btn-danger btn-rounded btn-sm btn-fixed">Delete!</button>
+                                    <input type="hidden" name="id" value="@game.Id" />
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

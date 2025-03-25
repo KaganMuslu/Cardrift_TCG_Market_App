@@ -291,7 +291,6 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
-
     #region Cards Section
 
         public IActionResult Cards(int page, string? searchTerm)
@@ -446,6 +445,39 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return RedirectToAction("categories");
         }
 
+        public IActionResult EditCategory(int id)
+        {
+            var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult EditCategory(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+
+            _context.Update(category);
+            _context.SaveChanges();
+
+            return RedirectToAction("categories");
+        }
+
+        public IActionResult DeleteCategory(int id)
+        {
+            var deleteCategory = _context.Categories.FirstOrDefault(x => x.Id == id);
+
+            if (deleteCategory != null)
+            {
+                _context.Remove(deleteCategory);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("categories");
+        }
 
         #endregion
 
