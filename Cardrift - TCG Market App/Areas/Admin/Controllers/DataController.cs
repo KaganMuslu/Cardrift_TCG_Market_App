@@ -105,7 +105,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(game);
             }
 
-            var sameName = _context.Games.Where(x => x.Name == game.Name && x.Id != game.Id).FirstOrDefault();
+            var sameName = _context.Games.Where(x => x.Name == game.Name).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This name is already in use!");
@@ -147,6 +147,15 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 return View(game);
             }
+
+            // Önceden eklenmiş aynı addakileri kontrol
+            var sameName = _context.Games.Where(x => x.Name == game.Name && x.Id != game.Id).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This name is already in use!");
+                return View(game);
+            }
+
 
             if (ImageFile != null && ImageFile.Length > 0)
             {
@@ -208,7 +217,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(product);
             }
 
-            var sameName = _context.Products.Where(x => x.Name == product.Name && x.Id != product.Id).FirstOrDefault();
+            var sameName = _context.Products.Where(x => x.Name == product.Name).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This name is already in use!");
@@ -256,6 +265,17 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = _context.Categories.ToList();
+                ViewBag.Games = _context.Games.ToList();
+
+                return View(product);
+            }
+
+            var sameName = _context.Products.Where(x => x.Name == product.Name && x.Id != product.Id).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This name is already in use!");
+
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.Games = _context.Games.ToList();
 
@@ -323,7 +343,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(card);
             }
 
-            var sameName = _context.Cards.Where(x => x.Name == card.Name && card.SetId == x.SetId && card.Rarity == x.Rarity).FirstOrDefault();
+            var sameName = _context.Cards.Where(x => x.Name == card.Name && card.SetId == x.SetId && card.GameId == x.GameId && card.Rarity == x.Rarity).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This card is already exists!");
@@ -378,6 +398,17 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(card);
             }
 
+            var sameName = _context.Cards.Where(x => x.Name == card.Name && card.SetId == x.SetId && card.GameId == x.GameId && card.Rarity == x.Rarity && card.Id != x.Id).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This card is already exists!");
+
+                ViewBag.Games = _context.Games.ToList();
+                ViewBag.Sets = _context.Sets.ToList();
+
+                return View(card);
+            }
+
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = UniqueFileNameCopy(ImageFile);
@@ -407,7 +438,6 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
 
     #endregion
-
 
     #region Categories Section
 
@@ -460,6 +490,15 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(category);
             }
 
+            // Önceden eklenmiş aynı addakileri kontrol
+            var sameName = _context.Categories.Where(x => x.Name == category.Name && x.Id != category.Id).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This category is already exists!");
+
+                return View(category);
+            }
+
             _context.Update(category);
             _context.SaveChanges();
 
@@ -479,7 +518,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             return RedirectToAction("categories");
         }
 
-        #endregion
+    #endregion
 
     #region Sets Section
 
@@ -503,7 +542,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 return View(set);
             }
 
-            var sameName = _context.Categories.Where(x => x.Name == set.Name).FirstOrDefault();
+            var sameName = _context.Sets.Where(x => x.Name == set.Name).FirstOrDefault();
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This set is already exists!");
@@ -513,6 +552,54 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
             _context.Add(set);
             _context.SaveChanges();
+
+            return RedirectToAction("sets");
+        }
+
+        public IActionResult EditSet(int id)
+        {
+            var set = _context.Sets.FirstOrDefault(x => x.Id == id);
+
+            if (set == null)
+            {
+                return RedirectToAction("sets");
+            }
+
+            return View(set);
+        }
+
+        [HttpPost]
+        public IActionResult EditSet(Set set)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(set);
+            }
+
+            // Önceden eklenmiş aynı addakileri kontrol
+            var sameName = _context.Sets.Where(x => x.Name == set.Name && x.Id != set.Id).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This set is already exists!");
+
+                return View(set);
+            }
+
+            _context.Update(set);
+            _context.SaveChanges();
+
+            return RedirectToAction("sets");
+        }
+
+        public IActionResult DeleteSet(int id)
+        {
+            var deleteSet = _context.Sets.FirstOrDefault(x => x.Id == id);
+
+            if (deleteSet != null)
+            {
+                _context.Remove(deleteSet);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("sets");
         }

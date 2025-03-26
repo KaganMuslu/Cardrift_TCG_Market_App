@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Set
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form asp-controller="data" asp-action="editset" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                <div class="card-header">
+                    <div class="card-title">Edit Set</div>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center justify-content-center">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="name">Set Name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       asp-for="Name"
+                                       placeholder="Set Name" />
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a asp-controller="data" asp-action="categories" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
