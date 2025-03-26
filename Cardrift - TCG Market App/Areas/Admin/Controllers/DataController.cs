@@ -607,6 +607,19 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
+    #region Communication
+
+        public IActionResult ReportError()
+        {
+            return View();
+        }
+
+        public IActionResult AskDeveloper()
+        {
+            return View();
+        }
+
+        #endregion
 
     }
 }
