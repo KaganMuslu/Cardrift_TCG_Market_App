@@ -481,15 +481,44 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
-        #region Sets Section
+    #region Sets Section
 
-        public IActionResult Sets()
+        public IActionResult Sets(int page, string? searchTerm)
+        {
+            var sets = PagedData<Set>(page, searchTerm);
+
+            return View(sets);
+        }
+
+        public IActionResult AddSet()
         {
             return View();
         }
 
+        [HttpPost]
+        public IActionResult AddSet(Set set)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(set);
+            }
 
-    #endregion
+            var sameName = _context.Categories.Where(x => x.Name == set.Name).FirstOrDefault();
+            if (sameName != null)
+            {
+                ModelState.AddModelError("Name", "This set is already exists!");
+
+                return View(set);
+            }
+
+            _context.Add(set);
+            _context.SaveChanges();
+
+            return RedirectToAction("sets");
+        }
+
+
+        #endregion
 
 
     }
