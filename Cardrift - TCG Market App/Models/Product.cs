@@ -28,6 +28,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         [ForeignKey("Game")]
         public int? GameId { get; set; }
+        public Game? Game { get; set; }
 
         [ForeignKey("Category")]
         [Required(ErrorMessage = "Category is required!")]
@@ -35,7 +36,6 @@ namespace Cardrift___TCG_Market_App.Models
         public Category Category { get; set; }
 
         public List<Deck>? Decks { get; set; } = new();
-        public List<Game>? Games { get; set; } = new();
 
         #endregion
     }

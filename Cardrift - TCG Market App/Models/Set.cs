@@ -15,6 +15,7 @@ namespace Cardrift___TCG_Market_App.Models
 
         [ForeignKey("Game")]
         public int GameId { get; set; }
+        public Game Game { get; set; }
 
         public List<Card>? Cards { get; set; } = new();
 

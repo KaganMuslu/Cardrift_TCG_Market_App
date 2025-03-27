@@ -20,7 +20,7 @@
             <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
+                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important; z-index:inherit">
                             <i class="fa fa-search search-icon"></i>
                         </button>
                     </div>
@@ -51,38 +51,59 @@
     {
         @foreach (var product in Model)
         {
-            <div class="col-md-3 d-flex">
-                <div class="card card-post card-round d-flex flex-column">
+            <div class="col-md-6 d-flex align-items-stretch">
+                <div class="card card-post card-round d-flex flex-row align-items-center w-100">
                     @if (product.ImageUrl != null)
                     {
-                        <img src="@product.ImageUrl"
-                             alt="@product.Name image cap"
-                             class="card-img-top"
-                             style="height: 200px; object-fit: cover;" />
+                        <div class="zoom">
+                            <img src="@product.ImageUrl"
+                                 alt="@product.Name image cap"
+                                 class="card-img-top"
+                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        </div>
                     }
                     else
                     {
-                        <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
-                             alt="@product.Name image cap"
-                             class="card-img-top"
-                             style="height: 200px; object-fit: cover;" />
+                        <div class="zoom">
+                            <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                                 alt="@product.Name image cap"
+                                 class="card-img-top"
+                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        </div>
                     }
 
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body d-flex flex-column justify-content-between h-100" style="flex: 1; display: flex;">
                         <h3 class="card-title">
                             <a href="#"> @product.Name </a>
                         </h3>
-                        <br>
-                        <div class="mt-auto">
-                            <form asp-area="admin" asp-controller="data" asp-action="editproduct" method="get">
-                                <button type="submit" class="btn btn-secondary btn-rounded btn-sm">Edit Product</button>
-                                <input type="hidden" name="id" value="@product.Id" />
-                            </form>
-                            <form asp-area="admin" asp-controller="data" asp-action="deleteproduct" method="post">
-                                <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
-                                <input type="hidden" name="id" value="@product.Id" />
-                            </form>
+                        <div>
+                            <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            <div class="title" style="font-weight:bold">@product.Category.Name</div>
                         </div>
+                        <div class="row user-stats text-center">
+                            <div class="col">
+                                <div class="title">Price</div>
+                                <div class="number">@product.Price</div>
+                            </div>
+                            <div class="col">
+                                <div class="title">Stock</div>
+                                <div class="number">@product.StockQuantity</div>
+                            </div>
+                        </div>
+                        <di class="row user-stats text-center mt-2">
+                            <div class="col">
+                                <form asp-area="admin" asp-controller="data" asp-action="editproduct" method="get">
+                                    <button type="submit" class="btn btn-secondary btn-rounded btn-sm">Edit Product</button>
+                                    <input type="hidden" name="id" value="@product.Id" />
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form asp-area="admin" asp-controller="data" asp-action="deleteproduct" method="post">
+                                    <button type="submit" class="btn btn-danger btn-rounded btn-sm">Delete!</button>
+                                    <input type="hidden" name="id" value="@product.Id" />
+                                </form>
+                            </div>
+                        </di        v>
                     </div>
                 </div>
             </div>

@@ -190,7 +190,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Products(int page, string? searchTerm)
         {
-            var products = PagedData<Product>(page, searchTerm);
+            var products = PagedData<Product>(page, searchTerm, x => x.Game, y => y.Category);
 
             return View(products);
         }
@@ -315,7 +315,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Cards(int page, string? searchTerm)
         {
-            var cards = PagedData<Card>(page, searchTerm, x => x.Set);
+            var cards = PagedData<Card>(page, searchTerm, x => x.Set, y => y.Game);
 
             return View(cards);
         }
@@ -524,7 +524,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Sets(int page, string? searchTerm)
         {
-            var sets = PagedData<Set>(page, searchTerm);
+            var sets = PagedData<Set>(page, searchTerm, x => x.Game);
 
             return View(sets);
         }
