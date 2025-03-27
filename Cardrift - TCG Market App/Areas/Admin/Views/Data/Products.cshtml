@@ -3,6 +3,8 @@
 *@
 @model List<Product>
 
+
+
 <br>
 
 @* Search Bar *@
@@ -31,6 +33,28 @@
                            style="background-color: #FFFFFF !important;" />
                 </div>
             </nav>
+            <div>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories </a>
+                    <ul class="dropdown-menu">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <li><a class="dropdown-item" href="#">@category.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games </a>
+                    <ul class="dropdown-menu">
+                        @foreach (var game in ViewBag.Games)
+                        {
+                            <li><a class="dropdown-item" href="#">@game.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
             <div>
                 <a asp-controller="data" asp-action="addproduct" class="btn btn-secondary">
                     <span class="btn-label">
