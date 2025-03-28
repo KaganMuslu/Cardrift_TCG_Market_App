@@ -48,38 +48,37 @@
 
 <br>
 
-<form asp-controller="data" asp-action="products">
-    <div class="d-flex align-items-center justify-content-center" style="gap: 10px; width: 100%;">
-    <div>
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories </a>
-            <ul class="dropdown-menu">
+<div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        Filter
+    </button>
+    <form class="dropdown-menu p-4" asp-controller="data" asp-action="products">
+        <div class="mb-3">
+            <label>Category</label>
+            <select class="form-select" name="category">
+                <option value="">All</option>
                 @foreach (var category in ViewBag.Categories)
                 {
-                    <form asp-area="admin" asp-controller="data" asp-action="products" method="get">
-                        <input type="hidden" name="category" value="@category.Name" />
-                        <button type="submit" class="dropdown-item">@category.Name</button>
-                    </form>
+                    <option value="@category.Name">@category.Name</option>
                 }
-            </ul>
+            </select>
         </div>
-    </div>
-    <div>
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games </a>
-            <ul class="dropdown-menu">
+        <div class="mb-3">
+            <label>Game</label>
+            <select class="form-select" name="game">
+                <option value="">All</option>
                 @foreach (var game in ViewBag.Games)
                 {
-                    <form asp-area="admin" asp-controller="data" asp-action="products" method="get">
-                        <input type="hidden" name="game" value="@game.Name" />
-                        <button type="submit" class="dropdown-item">@game.Name</button>
-                    </form>
+                    <option value="@game.Name">@game.Name</option>
                 }
-            </ul>
+            </select>
         </div>
-    </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
 </div>
-</form>
+
+
 
 <br>
 
