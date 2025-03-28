@@ -34,28 +34,6 @@
                 </div>
             </nav>
             <div>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories </a>
-                    <ul class="dropdown-menu">
-                        @foreach (var category in ViewBag.Categories)
-                        {
-                            <li><a class="dropdown-item" href="#">@category.Name</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games </a>
-                    <ul class="dropdown-menu">
-                        @foreach (var game in ViewBag.Games)
-                        {
-                            <li><a class="dropdown-item" href="#">@game.Name</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div>
                 <a asp-controller="data" asp-action="addproduct" class="btn btn-secondary">
                     <span class="btn-label">
                         <i class="fa fa-plus"></i>
@@ -64,11 +42,46 @@
                 </a>
             </div>
         </div>
+        
     </form>
 </div>
 
 <br>
 
+<form asp-controller="data" asp-action="products">
+    <div class="d-flex align-items-center justify-content-center" style="gap: 10px; width: 100%;">
+    <div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories </a>
+            <ul class="dropdown-menu">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <form asp-area="admin" asp-controller="data" asp-action="products" method="get">
+                        <input type="hidden" name="category" value="@category.Name" />
+                        <button type="submit" class="dropdown-item">@category.Name</button>
+                    </form>
+                }
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Games </a>
+            <ul class="dropdown-menu">
+                @foreach (var game in ViewBag.Games)
+                {
+                    <form asp-area="admin" asp-controller="data" asp-action="products" method="get">
+                        <input type="hidden" name="game" value="@game.Name" />
+                        <button type="submit" class="dropdown-item">@game.Name</button>
+                    </form>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+</form>
+
+<br>
 
 <div class="row row-card text-center">
     @if (Model.Count != 0)
@@ -127,10 +140,9 @@
                                     <input type="hidden" name="id" value="@product.Id" />
                                 </form>
                             </div>
-                        </di        v>
+                        </div>
                     </div>
                 </div>
-            </div>
         }
     }
     else

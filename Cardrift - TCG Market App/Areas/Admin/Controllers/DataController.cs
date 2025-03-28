@@ -36,15 +36,20 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 query = query.Where(x => EF.Property<string>(x, "Name").Contains(searchTerm)); // Dinamik arama
             }
 
-            if (!string.IsNullOrEmpty(game))
+            // Eğer product sınıfı üzerine çalışıyorsak yapılacak filtrelemeler
+            if (typeof(T) == typeof(Product))
             {
-                query = query.Where(x => EF.Property<string>(x, "Game") == game);
+                if (!string.IsNullOrEmpty(game))
+                {
+                    query = query.Where(x => ((Product)(object)x).Game.Name == game);
+                }
+
+                if (!string.IsNullOrEmpty(category))
+                {
+                    query = query.Where(x => ((Product)(object)x).Category.Name == category);
+                }
             }
 
-            if (!string.IsNullOrEmpty(category))
-            {
-                query = query.Where(x => EF.Property<string>(x, "Category") == category);
-            }
 
             List<T> data = query.OrderBy(x => EF.Property<object>(x, "Id"))
                 .Skip(skip)
