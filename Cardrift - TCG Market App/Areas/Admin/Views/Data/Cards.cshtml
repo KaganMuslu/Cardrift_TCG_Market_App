@@ -11,9 +11,7 @@
         <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
             <div>
                 <a asp-controller="data" asp-action="cards" class="btn btn-primary">
-                    <span class="btn-label">
-                        <i class="fa fa-home"></i>
-                    </span>
+                    <i class="fa fa-home"></i>
                     Home
                 </a>
             </div>
@@ -31,6 +29,46 @@
                            style="background-color: #FFFFFF !important;" />
                 </div>
             </nav>
+            <!-- Filter -->
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Filter
+                </button>
+                <div class="dropdown-menu p-4" style="min-width: 250px;">
+                    <div class="mb-3">
+                        <label>Game</label>
+                        <select class="form-select" name="game">
+                            <option value="">All</option>
+                            @foreach (var game in ViewBag.Games)
+                            {
+                                <option value="@game.Name">@game.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Set</label>
+                        <select class="form-select" name="set">
+                            <option value="">All</option>
+                            @foreach (var set in ViewBag.Sets)
+                            {
+                                <option value="@set.Name">@set.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Rarity</label>
+                        <select class="form-select" name="rarity">
+                            <option value="">All</option>
+                            @foreach (var rarity in ViewBag.Rarities)
+                            {
+                                <option value="@rarity">@rarity</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+                </div>
+            </div>
+
             <div>
                 <a asp-controller="data" asp-action="addcard" class="btn btn-secondary">
                     <span class="btn-label">

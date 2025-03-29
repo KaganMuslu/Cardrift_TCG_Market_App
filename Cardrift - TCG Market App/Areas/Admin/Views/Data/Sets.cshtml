@@ -38,6 +38,25 @@
                            style="background-color: #FFFFFF !important;" />
                 </div>
             </nav>
+            <!-- Filter -->
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Filter
+                </button>
+                <div class="dropdown-menu p-4" style="min-width: 250px;">
+                    <div class="mb-3">
+                        <label>Game</label>
+                        <select class="form-select" name="game">
+                            <option value="">All</option>
+                            @foreach (var game in ViewBag.Games)
+                            {
+                                <option value="@game.Name">@game.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+                </div>
+            </div>
             <div>
                 <a asp-controller="data" asp-action="addset" class="btn btn-secondary">
                     <span class="btn-label">

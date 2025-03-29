@@ -3,80 +3,73 @@
 *@
 @model List<Product>
 
-
-
 <br>
 
-@* Search Bar *@
+@* Search + Filter + Add Product Bar *@
 <div class="row row-card text-center">
     <form asp-controller="data" asp-action="products">
         <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
+            <!-- Home -->
             <div>
                 <a asp-controller="data" asp-action="products" class="btn btn-primary">
-                    <span class="btn-label">
-                        <i class="fa fa-home"></i>
-                    </span>
-                    Home
+                    <i class="fa fa-home"></i> Home
                 </a>
             </div>
+
+            <!-- Search -->
             <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important; z-index:inherit">
+                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
                             <i class="fa fa-search search-icon"></i>
                         </button>
                     </div>
-                    <input type="text"
-                           name="searchTerm"
-                           placeholder="Product Search..."
-                           class="form-control text-center"
-                           style="background-color: #FFFFFF !important;" />
+                    <input type="text" name="searchTerm" placeholder="Product Search..." class="form-control text-center" style="background-color: #FFFFFF !important;" />
                 </div>
             </nav>
+
+            <!-- Filter -->
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Filter
+                </button>
+                <div class="dropdown-menu p-4" style="min-width: 250px;">
+                    <div class="mb-3">
+                        <label>Game</label>
+                        <select class="form-select" name="game">
+                            <option value="">All</option>
+                            @foreach (var game in ViewBag.Games)
+                            {
+                                <option value="@game.Name">@game.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <select class="form-select" name="category">
+                            <option value="">All</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.Name">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+                </div>
+            </div>
+
+            <!-- Add Product -->
             <div>
                 <a asp-controller="data" asp-action="addproduct" class="btn btn-secondary">
-                    <span class="btn-label">
-                        <i class="fa fa-plus"></i>
-                    </span>
-                    Add Product
+                    <i class="fa fa-plus"></i> Add Product
                 </a>
             </div>
         </div>
-        
     </form>
 </div>
 
-<br>
+<br />
 
-<div class="dropdown">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-        Filter
-    </button>
-    <form class="dropdown-menu p-4" asp-controller="data" asp-action="products">
-        <div class="mb-3">
-            <label>Category</label>
-            <select class="form-select" name="category">
-                <option value="">All</option>
-                @foreach (var category in ViewBag.Categories)
-                {
-                    <option value="@category.Name">@category.Name</option>
-                }
-            </select>
-        </div>
-        <div class="mb-3">
-            <label>Game</label>
-            <select class="form-select" name="game">
-                <option value="">All</option>
-                @foreach (var game in ViewBag.Games)
-                {
-                    <option value="@game.Name">@game.Name</option>
-                }
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
-
-</div>
 
 
 

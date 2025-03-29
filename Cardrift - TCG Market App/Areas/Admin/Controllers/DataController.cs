@@ -16,7 +16,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         }
 
         // Pagedli sayfalama
-        private List<T> PagedData<T>(int page, string? searchTerm, string? game, string? category, params Expression<Func<T, object>>[] includes) where T : class
+        private List<T> PagedData<T>(int page, string? searchTerm, string? game, string? category, string? set, string? rarity, params Expression<Func<T, object>>[] includes) where T : class
         {
             if (page < 1) page = 1; // Sayfa numarası 0 veya negatifse düzelt
 
@@ -47,6 +47,34 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 if (!string.IsNullOrEmpty(category))
                 {
                     query = query.Where(x => ((Product)(object)x).Category.Name == category);
+                }
+            }
+
+            // Card modeli için filtreleme
+            if (typeof(T) == typeof(Card))
+            {
+                if (!string.IsNullOrEmpty(game))
+                {
+                    query = query.Where(x => ((Card)(object)x).Game.Name == game);
+                }
+
+                if (!string.IsNullOrEmpty(set))
+                {
+                    query = query.Where(x => ((Card)(object)x).Set.Name == set);
+                }
+
+                if (!string.IsNullOrEmpty(rarity))
+                {
+                    query = query.Where(x => ((Card)(object)x).Rarity == rarity);
+                }
+            }
+
+            // Set modeli için filtreleme
+            if (typeof(T) == typeof(Set))
+            {
+                if (!string.IsNullOrEmpty(game))
+                {
+                    query = query.Where(x => ((Set)(object)x).Game.Name == game);
                 }
             }
 
@@ -99,7 +127,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Games(int page, string? searchTerm)
         {
-            var games = PagedData<Game>(page, searchTerm, null, null);
+            var games = PagedData<Game>(page, searchTerm, null, null, null, null);
 
 
             return View(games);
@@ -201,14 +229,14 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
-        #region Products Section
+    #region Products Section
 
         public IActionResult Products(int page, string? searchTerm, string? game, string? category)
         {
             ViewBag.Categories = _context.Categories.ToList();
             ViewBag.Games = _context.Games.ToList();
 
-            var products = PagedData<Product>(page, searchTerm, game, category, x => x.Game, y => y.Category);
+            var products = PagedData<Product>(page, searchTerm, game, category, null, null, x => x.Game, y => y.Category);
             return View(products);
         }
 
@@ -330,9 +358,13 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
     #region Cards Section
 
-        public IActionResult Cards(int page, string? searchTerm)
+        public IActionResult Cards(int page, string? searchTerm, string? game, string? set, string? rarity)
         {
-            var cards = PagedData<Card>(page, searchTerm, null, null, x => x.Set, y => y.Game);
+            ViewBag.Games = _context.Games.ToList();
+            ViewBag.Sets = _context.Sets.ToList();
+            ViewBag.Rarities = _context.Cards.GroupBy(x => x.Rarity).Select(x => x.Key).ToList();
+
+            var cards = PagedData<Card>(page, searchTerm, game, null, set, rarity, x => x.Set, y => y.Game);
 
             return View(cards);
         }
@@ -460,7 +492,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         public IActionResult Categories(int page, string? searchTerm)
         {
-            var categories = PagedData<Category>(page, searchTerm, null, null);
+            var categories = PagedData<Category>(page, searchTerm, null, null, null, null);
 
             return View(categories);
         }
@@ -539,9 +571,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
     #region Sets Section
 
-        public IActionResult Sets(int page, string? searchTerm)
+        public IActionResult Sets(int page, string? searchTerm, string? game)
         {
-            var sets = PagedData<Set>(page, searchTerm, null, null, x => x.Game);
+            ViewBag.Games = _context.Games.ToList();
+
+            var sets = PagedData<Set>(page, searchTerm, game, null, null, null, x => x.Game);
 
             return View(sets);
         }
