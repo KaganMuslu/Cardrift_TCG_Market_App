@@ -85,7 +85,8 @@
                     @if (product.ImageUrl != null)
                     {
                         <div class="zoom">
-                            <img src="@product.ImageUrl"
+                            <img id="myImg_@product.Id"
+                                 src="@product.ImageUrl"
                                  alt="@product.Name image cap"
                                  class="card-img-top"
                                  style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
@@ -94,7 +95,8 @@
                     else
                     {
                         <div class="zoom">
-                            <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                            <img idid="myImg_@product.Id"
+                                 src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
                                  alt="@product.Name image cap"
                                  class="card-img-top"
                                  style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
@@ -149,6 +151,12 @@
 </div>
 
 <br />
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+
 
 <div class="card-body">
     <ul class="pagination pg-primary justify-content-center">
