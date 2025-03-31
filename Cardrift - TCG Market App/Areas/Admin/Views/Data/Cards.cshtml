@@ -94,7 +94,7 @@
                     @if (card.ImageUrl != null)
                     {
                         <div class="zoom">
-                            <img id="myImg_@card.Id"
+                            <img id="zoomImage_@card.Id"
                                  src="@card.ImageUrl"
                                  alt="@card.Name image cap"
                                  class="card-img-left"
@@ -103,8 +103,7 @@
                     }
                     else
                     {
-                        <img id="myImg_@card.Id"
-                             src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                        <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
                              alt="@card.Name image cap"
                              class="card-img-left"
                              style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />

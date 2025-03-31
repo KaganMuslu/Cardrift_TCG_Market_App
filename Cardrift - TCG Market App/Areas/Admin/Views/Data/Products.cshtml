@@ -85,7 +85,7 @@
                     @if (product.ImageUrl != null)
                     {
                         <div class="zoom">
-                            <img id="myImg_@product.Id"
+                            <img id="zoomImage_@product.Id"
                                  src="@product.ImageUrl"
                                  alt="@product.Name image cap"
                                  class="card-img-top"
@@ -95,8 +95,7 @@
                     else
                     {
                         <div class="zoom">
-                            <img id="myImg_@product.Id"
-                                 src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                            <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
                                  alt="@product.Name image cap"
                                  class="card-img-top"
                                  style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
