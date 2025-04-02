@@ -13,15 +13,17 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
         [Route("products")]
         public IActionResult Product()
         {
-            return View();
+            var products = _context.Products.ToList();
+
+            return View(products);
         }
 
         [Route("products/{category}")]
         public IActionResult Product(string category)
         {
-            string key = "2 card found!";
+            var products = _context.Products.ToList();
 
-            return View("product", key);
+            return View("product");
         }
 
         [Route("products/{category}/{type}")]
