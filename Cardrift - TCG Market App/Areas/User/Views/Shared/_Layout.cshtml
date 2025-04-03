@@ -4,70 +4,70 @@
 
     <style>
         .zoom {
-            transition: transform .2s; /* Animation */
+        transition: transform .2s; /* Animation */
         }
 
         .zoom:hover {
-            transform: scale(1.4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        transform: scale(1.4); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         }
 
         .container {
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto; /* Ortalamak için */
-            padding: 0; /* Padding’i sıfırla */
-            max-width: 100%; /* Genişlik kontrolü */
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto; /* Ortalamak için */
+        padding: 0; /* Padding’i sıfırla */
+        max-width: 100%; /* Genişlik kontrolü */
         }
 
         .container img {
-            width: 100%;
-            display: block; /* Boşlukları engelle */
-            object-fit: cover; /* Resmi kırpmak için */
+        width: 100%;
+        display: block; /* Boşlukları engelle */
+        object-fit: cover; /* Resmi kırpmak için */
         }
 
         .container .content {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box; /* Padding genişliği etkilemesin */
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        color: #f1f1f1;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box; /* Padding genişliği etkilemesin */
         }
 
         .owl-carousel .item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0; /* Owl item padding sıfırla */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0; /* Owl item padding sıfırla */
         }
     </style>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Cardrift - TCG Market App</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-          name="viewport" />
+    name="viewport" />
     <link rel="icon"
-          href="~/user/assets/img/kaiadmin/favicon.ico"
-          type="image/x-icon" />
+    href="~/user/assets/img/kaiadmin/favicon.ico"
+    type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="~/user/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
-          google: { families: ["Public Sans:300,400,500,600,700"] },
-          custom: {
-            families: [
-              "Font Awesome 5 Solid",
-              "Font Awesome 5 Regular",
-              "Font Awesome 5 Brands",
-              "simple-line-icons",
-            ],
-            urls: ["/user/assets/css/fonts.min.css"],
-          },
-          active: function () {
-            sessionStorage.fonts = true;
-          },
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+        families: [
+        "Font Awesome 5 Solid",
+        "Font Awesome 5 Regular",
+        "Font Awesome 5 Brands",
+        "simple-line-icons",
+        ],
+        urls: ["/user/assets/css/fonts.min.css"],
+        },
+        active: function () {
+        sessionStorage.fonts = true;
+        },
         });
     </script>
 
@@ -88,10 +88,10 @@
                 <div class="logo-header" data-background-color="dark">
                     <a asp-area="user" asp-controller="main" asp-action="index" class="logo" style="margin-left: -20px; margin-top: 10px;">
                         <img src="~/cardrift_logo_png.png"
-                             alt="navbar brand"
-                             class="navbar-brand"
-                             width="220" 
-                             />
+                        alt="navbar brand"
+                        class="navbar-brand"
+                        width="220" 
+                        />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -117,152 +117,37 @@
                                 <i class="fa fa-ellipsis-h"></i>
                             </span>
                             <h4 class="text-section">Games</h4>
-                            @* Supplies Section *@
                         </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#yugioh">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Yu-Gi-Oh!</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="yugioh">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="structures">
-                                            <span class="sub-item">Structure Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="decks" >
-                                            <span class="sub-item">Ready To Play Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="cores" >
-                                            <span class="sub-item">Deck Cores</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="singles">
-                                            <span class="sub-item">Singles</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="yugioh" asp-route-type="items" >
-                                            <span class="sub-item">All Items</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#mtg">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Magic: The Gathering</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="mtg">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="mtg" asp-route-type="structures">
-                                            <span class="sub-item">Structure Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="mtg" asp-route-type="decks">
-                                            <span class="sub-item">Ready To Play Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="mtg" asp-route-type="cores">
-                                            <span class="sub-item">Deck Cores</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="mtg" asp-route-type="singles">
-                                            <span class="sub-item">Singles</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="mtg" asp-route-type="items">
-                                            <span class="sub-item">All Items</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#pokemon">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Pokemon</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="pokemon">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="pokemon" asp-route-type="structures">
-                                            <span class="sub-item">Structure Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="pokemon" asp-route-type="decks">
-                                            <span class="sub-item">Ready To Play Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="pokemon" asp-route-type="cores">
-                                            <span class="sub-item">Deck Cores</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="pokemon" asp-route-type="singles">
-                                            <span class="sub-item">Singles</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="pokemon" asp-route-type="items">
-                                            <span class="sub-item">All Items</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="#digimon">
-                                <i class="fas fa-caret-right"></i>
-                                <p>Digimon</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="digimon">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="digimon" asp-route-type="structures">
-                                            <span class="sub-item">Structure Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="digimon" asp-route-type="decks">
-                                            <span class="sub-item">Ready To Play Decks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="digimon" asp-route-type="cores">
-                                            <span class="sub-item">Deck Cores</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="digimon" asp-route-type="singles">
-                                            <span class="sub-item">Singles</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-category="digimon" asp-route-type="items">
-                                            <span class="sub-item">All Items</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        @foreach (var game in ViewBag.Games)
+                        {
+                            <li class="nav-item">
+                                <a data-bs-toggle="collapse" href="#@game.PageName">
+                                    <i class="fas fa-caret-right"></i>
+                                    <p>@game.Name</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse" id="@game.PageName">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-game="@game.PageName">
+                                                <span class="sub-item">Structure Decks</span>
+                                            </a>
+                                        </li>
+                                        @foreach (var categorygame in ViewBag.CategoryGame)
+                                        {
+                                            @if(categorygame.Game.Id == game.Id)
+                                            {
+                                                <li>
+                                                    <a asp-area="user" asp-controller="Product" asp-action="Product" asp-route-game="@categorygame.Game.PageName" asp-route-category="@categorygame.Category.PageName">
+                                                        <span class="sub-item">Structure Decks</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        }
 
                         @* Supplies Section *@
                         <li class="nav-section">

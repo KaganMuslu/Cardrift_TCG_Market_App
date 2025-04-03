@@ -9,12 +9,19 @@ namespace Cardrift___TCG_Market_App.Models
         [Required(ErrorMessage = "Game name is required!")]
         [StringLength(100, ErrorMessage = "Game name must be at most 100 characters!")]
         public string Name { get; set; }
+        public string pagename;
+        public string PageName
+        {
+            get => pagename;
+            set => pagename = Name.Replace(" ", "").ToLower();
+        }
 
         public string? ImageUrl { get; set; }
 
         #region Navigation Properties
         public List<Product>? Products { get; set; } = new();
         public List<Card>? Cards { get; set; } = new();
+        public List<CategoryGame>? CategoryGames { get; set; } = new();
         #endregion
     }
 }

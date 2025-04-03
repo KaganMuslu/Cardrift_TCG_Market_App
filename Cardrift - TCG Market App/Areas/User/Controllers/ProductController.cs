@@ -26,10 +26,10 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
             return View("product");
         }
 
-        [Route("products/{category}/{type}")]
-        public IActionResult Product(string category, string type)
+        [Route("products/{game}/{category}")]
+        public IActionResult Product(string game, string category)
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products.Where(x => x.Game.PageName == game && x.Category.PageName == category).ToList();
 
             return View(products);
         }

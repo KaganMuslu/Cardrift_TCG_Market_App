@@ -1,5 +1,7 @@
 ﻿using Cardrift___TCG_Market_App.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 {
@@ -12,5 +14,11 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
             _context = context;
         }
 
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+            ViewBag.CategoryGame = _context.CategoryGame.Include(x => x.Game).Include(x => x.Category).ToList();
+            ViewBag.Games = _context.Games.ToList();
+        }
     }
 }
