@@ -361,8 +361,8 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         public IActionResult Cards(int page, string? searchTerm, string? game, string? set, string? rarity)
         {
             ViewBag.Games = _context.Games.ToList();
-            ViewBag.Sets = _context.Sets.ToList();
-            ViewBag.Rarities = _context.Cards.GroupBy(x => x.Rarity).Select(x => x.Key).ToList();
+            ViewBag.Sets = _context.Sets.Where(x => x.Game.PageName == game).ToList();
+            ViewBag.Rarities = _context.Cards.Where(x => x.Game.PageName == game).GroupBy(x => x.Rarity).Select(x => x.Key).ToList();
 
             var cards = PagedData<Card>(page, searchTerm, game, null, set, rarity, x => x.Set, y => y.Game);
 

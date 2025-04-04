@@ -16,9 +16,11 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            base.OnActionExecuting(filterContext);
-            ViewBag.CategoryGame = _context.CategoryGame.Include(x => x.Game).Include(x => x.Category).ToList();
             ViewBag.Games = _context.Games.ToList();
+            ViewBag.CategoryGame = _context.CategoryGames
+                .Include(cg => cg.Game)
+                .Include(cg => cg.Category)
+                .ToList();
         }
     }
 }

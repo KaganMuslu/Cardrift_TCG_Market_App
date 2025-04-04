@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 {
     [Area("user")]
-    public class ProductController : BaseController
+    public class DataController : BaseController
     {
-        public ProductController(AppDbContext context) : base(context)
+        public DataController(AppDbContext context) : base(context)
         {
         }
+
 
         [Route("products")]
         public IActionResult Product()
@@ -33,5 +34,18 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
 
             return View(products);
         }
+
+
+
+        [Route("cards/{game}")]
+        public IActionResult Card(string game)
+        {
+            ViewBag.Sets = _context.Sets.Where(x => x.Game.PageName == game).ToList();
+            ViewBag.Rarities = _context.Cards.Where(x => x.Game.PageName == game).GroupBy(x => x.Rarity).Select(x => x.Key).ToList();
+
+            var cards = _context.Cards.Where(x => x.Game.PageName == game).ToList();
+
+            return View(cards);
+        }
     }
-}   
+}
