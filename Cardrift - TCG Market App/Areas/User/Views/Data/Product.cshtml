@@ -1,173 +1,207 @@
-﻿@{
-    ViewData["Title"] = "Product";
-}
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @model List<Product>
 
-<h2 class="text-center">Yu-Gi-Oh! All Items</h2>
-@foreach (var x in Model)
-{
-    <h4>@x.Name</h4>
-}
+<br>
 
-<div class="row">
-    <div class="col-2">
-        <div class="card" style="padding: 10px">
-            <h6 class="text-center">Categories</h6>
-
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"> <a href="smt">Supreme Darkness</a> </li>
-                <li class="list-group-item"> <a href="smt">Solid Invasion</a> </li>
-                <li class="list-group-item"> <a href="smt">Genesis Madness</a> </li>
-            </ul>
-            <hr>
-            <br />
-
-            <h6 class="text-center">Filter</h6>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"></li>
-            </ul>
-
-            <form class="row g-3">
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Keyword</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="">
-                </div>
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Min $</label>
-                    <input type="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Max $</label>
-                    <input type="password" class="form-control" id="inputPassword4">
-                </div>
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Out of Stock
-                        </label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="col-10">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 zoom">
-                            <img src="https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/1818455.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-text fw-bold">Ostinato - RA03-EN064 - Secret Rare 1st Edition</h5>
-                                <a href="#">Quarter Century Bonanza 1st Edition Singles</a>
-                                <hr />
-
-                                <div class="row text-center">
-                                    <div class="col-md-5">
-                                        <label class="form-label">Price</label>
-                                        <p class="card-text">$0.78</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputState" class="form-label">Quantity</label>
-                                        <select id="inputState" class="form-select">
-                                            <option selected>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-icon btn-round btn-success">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+@* Search + Filter Bar *@
+<div class="row row-card text-center">
+    <form asp-controller="data" asp-action="products">
+        <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
+            <!-- Home -->
+            <div>
+                <a asp-controller="data" asp-action="products" class="btn btn-primary">
+                    <i class="fa fa-home"></i> Home
+                </a>
             </div>
-            <div class="col">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 zoom">
-                            <img src="https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/1659216.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-text fw-bold">Bloom Harmonist the Melodious Composer - DUOV-EN020 - Ultra Rare 1st Edition</h5>
-                                <a href="#">Duel Overload 1st Edition Singles</a>
-                                <hr />
 
-                                <div class="row text-center">
-                                    <div class="col-md-5">
-                                        <label class="form-label">Price</label>
-                                        <p class="card-text">$0.98</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputState" class="form-label">Quantity</label>
-                                        <select id="inputState" class="form-select">
-                                            <option selected>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-icon btn-round btn-success">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+            <!-- Search -->
+            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex" style="flex: 1;">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-search pe-1" style="background-color: #FFFFFF !important;">
+                            <i class="fa fa-search search-icon"></i>
+                        </button>
                     </div>
+                    <input type="text" name="searchTerm" placeholder="Product Search..." class="form-control text-center" style="background-color: #FFFFFF !important;" />
                 </div>
-            </div>
-            <div class="col">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 zoom">
-                            <img src="https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/1102223.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-text fw-bold">Bloom Diva the Melodious Choir - MP16-EN020 - Ultra Rare 1st Edition</h5>
-                                <a href="#">Quarter Century Bonanza 1st Edition Singles</a>
-                                <hr />
+            </nav>
 
-                                <div class="row text-center">
-                                    <div class="col-md-5">
-                                        <label class="form-label">Price</label>
-                                        <p class="card-text">$0.99</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputState" class="form-label">Quantity</label>
-                                        <select id="inputState" class="form-select">
-                                            <option selected>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-icon btn-round btn-success">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+            <!-- Filter -->
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Filter
+                </button>
+                <div class="dropdown-menu p-4" style="min-width: 250px;">
+                    <div class="mb-3">
+                        <label>Game</label>
+                        <select class="form-select" name="game">
+                            <option value="">All</option>
+                            @foreach (var game in ViewBag.Games)
+                            {
+                                <option value="@game.Name">@game.Name</option>
+                            }
+                        </select>
                     </div>
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <select class="form-select" name="category">
+                            <option value="">All</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.Name">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+</div>
+
+<br />
+
+
+
+
+<br>
+
+<div class="row row-card text-center">
+    @if (Model.Count != 0)
+    {
+        @foreach (var product in Model)
+        {
+            <div class="col-md-6 d-flex align-items-stretch">
+                <div class="card card-post card-round d-flex flex-row align-items-center w-100">
+                    @if (product.ImageUrl != null)
+                    {
+                        <div class="zoom">
+                            <img id="zoomImage_@product.Id"
+                                 src="@product.ImageUrl"
+                                 alt="@product.Name image cap"
+                                 class="card-img-top"
+                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="zoom">
+                            <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
+                                 alt="@product.Name image cap"
+                                 class="card-img-top"
+                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                        </div>
+                    }
+
+                    <div class="card-body d-flex flex-column justify-content-between h-100" style="flex: 1; display: flex;">
+                        <h3 class="card-title">
+                            <a href="#"> @product.Name </a>
+                        </h3>
+                        <div>
+                            <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            <div class="title" style="font-weight:bold">@product.Category.Name</div>
+                        </div>
+                        <div class="row user-stats text-center">
+                            <div class="col">
+                                <div class="title">Price</div>
+                                <div class="number">@product.Price</div>
+                            </div>
+                            <div class="col">
+                                <div class="title">Stock</div>
+                                <div class="number">@product.StockQuantity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+            <div class="text-center">
+                <h2 class="text-danger">No data found!</h2>
+            </div>
+        </div>
+    }
+
+</div>
+
+<br />
+
+@* Zoom Modal *@
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+
+
+<div class="card-body">
+    <ul class="pagination pg-primary justify-content-center">
+
+
+        @if (ViewBag.page == 1)
+        {
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+
+            <li class="page-item active">
+                <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@ViewBag.page>1</a>
+            </li>
+            @if (ViewBag.next == true)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@(ViewBag.page+1)>2</a>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@(ViewBag.page-1) aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@(ViewBag.page-1)>@(ViewBag.page - 1)</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@ViewBag.page>@ViewBag.page</a>
+            </li>
+            @if (ViewBag.next == true)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@(ViewBag.page+1)>@(ViewBag.page + 1)</a>
+                </li>
+            }
+        }
+
+        @if (ViewBag.next == true)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-controller="data" asp-action="products" asp-route-page=@(ViewBag.page+1) aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        }
+
+    </ul>
 </div>

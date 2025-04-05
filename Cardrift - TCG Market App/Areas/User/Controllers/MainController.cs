@@ -144,9 +144,17 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                     Rarity = "Secret Rare"
                 };
 
+                var categorygame1 = new CategoryGame
+                {
+                    CategoryId = 1,
+                    GameId = 1
+                };
+
                 _context.Add(card1);
                 _context.Add(card2);
                 _context.Add(card3);
+                _context.Add(categorygame1);
+
                 _context.SaveChanges();
             }
 

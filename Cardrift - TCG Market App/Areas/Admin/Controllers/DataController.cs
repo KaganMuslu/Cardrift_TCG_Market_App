@@ -284,6 +284,23 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             _context.Add(product);
             _context.SaveChanges();
 
+
+            // Ardından CategoryGame ilişkisini kontrol et
+            var exists = _context.CategoryGames
+                .Any(cg => cg.CategoryId == product.CategoryId && cg.GameId == product.GameId);
+
+            if (product.GameId.HasValue && !exists)
+            {
+                _context.CategoryGames.Add(new CategoryGame
+                {
+                    CategoryId = product.CategoryId,
+                    GameId = product.GameId.Value
+                });
+
+                _context.SaveChanges();
+            }
+
+
             return RedirectToAction("products");
         }
 
@@ -312,51 +329,121 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
             {
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.Games = _context.Games.ToList();
-
                 return View(product);
             }
 
-            var sameName = _context.Products.Where(x => x.Name == product.Name && x.Id != product.Id).FirstOrDefault();
+            var sameName = _context.Products
+                .FirstOrDefault(x => x.Name == product.Name && x.Id != product.Id);
+
             if (sameName != null)
             {
                 ModelState.AddModelError("Name", "This name is already in use!");
-
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.Games = _context.Games.ToList();
-
                 return View(product);
             }
 
+            // ⬇️ Eski değerleri al (silme kontrolü için)
+            var existingProduct = _context.Products
+                .AsNoTracking()
+                .FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct == null)
+                return RedirectToAction("products");
+
+            var oldCategoryId = existingProduct.CategoryId;
+            var oldGameId = existingProduct.GameId;
+
+            // 📷 Resim işlemi
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 string fileName = UniqueFileNameCopy(ImageFile);
-
-                // URL'yi güncelle
                 product.ImageUrl = "/images/" + fileName;
             }
 
             _context.Update(product);
-            _context.SaveChanges();
 
+            // ✅ Yeni ilişkiyi kontrol et ve ekle
+            if (product.GameId.HasValue)
+            {
+                bool newRelationExists = _context.CategoryGames
+                    .Any(cg => cg.CategoryId == product.CategoryId && cg.GameId == product.GameId);
+
+                if (!newRelationExists)
+                {
+                    _context.CategoryGames.Add(new CategoryGame
+                    {
+                        CategoryId = product.CategoryId,
+                        GameId = product.GameId.Value
+                    });
+                }
+            }
+
+            // ❌ Eski ilişki artık kullanılmıyorsa sil
+            if (oldGameId.HasValue &&
+                (oldCategoryId != product.CategoryId || oldGameId != product.GameId))
+            {
+                bool isOldRelationStillUsed = _context.Products.Any(p =>
+                    p.Id != product.Id &&
+                    p.CategoryId == oldCategoryId &&
+                    p.GameId == oldGameId);
+
+                if (!isOldRelationStillUsed)
+                {
+                    var oldRelation = _context.CategoryGames
+                        .FirstOrDefault(cg => cg.CategoryId == oldCategoryId && cg.GameId == oldGameId.Value);
+
+                    if (oldRelation != null)
+                    {
+                        _context.CategoryGames.Remove(oldRelation);
+                    }
+                }
+            }
+
+            _context.SaveChanges(); // ✅ tek seferde kayıt
             return RedirectToAction("products");
         }
+
 
         public IActionResult DeleteProduct(int id)
         {
             var deleteProduct = _context.Products.FirstOrDefault(x => x.Id == id);
 
-            if(deleteProduct != null)
+            if (deleteProduct != null)
             {
+                // İlişki kontrolü için önce CategoryId ve GameId'yi alıyoruz
+                var oldCategoryId = deleteProduct.CategoryId;
+                var oldGameId = deleteProduct.GameId;
+
+                // Ürünü siliyoruz
                 _context.Remove(deleteProduct);
                 _context.SaveChanges();
+
+                // Bu ilişkiyi hâlâ kullanan başka ürün var mı?
+                bool isOldRelationStillUsed = _context.Products
+                    .Any(p => p.CategoryId == oldCategoryId && p.GameId == oldGameId);
+
+                // Yoksa CategoryGame ilişkisini de silelim
+                if (!isOldRelationStillUsed && oldGameId != null)
+                {
+                    var relation = _context.CategoryGames
+                        .FirstOrDefault(cg => cg.CategoryId == oldCategoryId && cg.GameId == oldGameId.Value);
+
+                    if (relation != null)
+                    {
+                        _context.CategoryGames.Remove(relation);
+                        _context.SaveChanges();
+                    }
+                }
             }
 
             return RedirectToAction("products");
         }
 
+
         #endregion
 
-    #region Cards Section
+        #region Cards Section
 
         public IActionResult Cards(int page, string? searchTerm, string? game, string? set, string? rarity)
         {
