@@ -1,4 +1,5 @@
 ﻿using Cardrift___TCG_Market_App.Data;
+using Cardrift___TCG_Market_App.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cardrift___TCG_Market_App.Areas.User.Controllers
@@ -22,9 +23,10 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
         [Route("products/{category}")]
         public IActionResult Product(string category)
         {
-            var products = _context.Products.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            var products = _context.Products.Where(x => x.Category.PageName == category).ToList();
 
-            return View("product");
+            return View(products);
         }
 
         [Route("products/{game}/{category}")]

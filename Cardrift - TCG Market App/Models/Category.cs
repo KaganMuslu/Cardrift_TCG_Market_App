@@ -10,12 +10,7 @@ namespace Cardrift___TCG_Market_App.Models
         [StringLength(100, ErrorMessage = "Category name must be at most 100 characters!")]
         public string Name { get; set; }
 
-        public string pagename;
-        public string PageName
-        {
-            get => pagename;
-            set => pagename = Name.Replace(" ", "").ToLower();
-        }
+        public string PageName { get; set; }
 
         #region Navigation Properties
         public List<Product>? Products { get; set; } = new();

@@ -15,109 +15,109 @@
 
         /* RESİM MODAL */
         #zoomImage {
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
         }
 
-            #zoomImage:hover {
-                opacity: 0.7;
-            }
+        #zoomImage:hover {
+        opacity: 0.7;
+        }
 
         /* The Modal (background) */
         .modal {
-            display: none;
-            position: fixed; /* Ekrana sabitle */
-            z-index: 1000;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        position: fixed; /* Ekrana sabitle */
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
         }
 
         /* Modal içeriğini ortalamak */
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 30%; /* Ekran genişliğinin %60'ını geçmesin */
-            border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-            transform-origin: center center; /* Animasyonun tam ortadan başlamasını sağlar */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 30%; /* Ekran genişliğinin %60'ını geçmesin */
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        transform-origin: center center; /* Animasyonun tam ortadan başlamasını sağlar */
         }
 
 
         /* Caption of Modal Image */
         #caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-            height: 150px;
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
         }
 
         /* Açılış Animasyonu */
         @@keyframes zoom {
-            from {
-                transform: translate(-50%, -50%) scale(0.4);
-            }
+        from {
+        transform: translate(-50%, -50%) scale(0.4);
+        }
 
-            to {
-                transform: translate(-50%, -50%) scale(1);
-            }
+        to {
+        transform: translate(-50%, -50%) scale(1);
+        }
         }
 
         /* Kapanış Animasyonu */
         @@keyframes zoom-out {
-            from {
-                transform: translate(-50%, -50%) scale(1);
-            }
+        from {
+        transform: translate(-50%, -50%) scale(1);
+        }
 
-            to {
-                transform: translate(-50%, -50%) scale(0);
-            }
+        to {
+        transform: translate(-50%, -50%) scale(0);
+        }
         }
 
         /* Animasyonları uygula */
         .modal-content, #caption {
-            animation-name: zoom;
-            animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
         }
 
         .out {
-            animation-name: zoom-out;
-            animation-duration: 0.6s;
+        animation-name: zoom-out;
+        animation-duration: 0.6s;
         }
 
         /* The Close Button */
         .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
         }
 
-            .close:hover,
-            .close:focus {
-                color: #bbb;
-                text-decoration: none;
-                cursor: pointer;
-            }
+        .close:hover,
+        .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+        }
 
         /* 100% Image Width on Smaller Screens */
         @@media only screen and (max-width: 700px) {
-            .modal-content {
-                width: 100%;
-            }
+        .modal-content {
+        width: 100%;
+        }
         }
         /* RESİM MODAL */
 
@@ -251,8 +251,8 @@
                                             {
                                                 <li>
                                                     <a asp-area="user" asp-controller="data" asp-action="Product"
-                                                       asp-route-game="@categorygame.Game.PageName"
-                                                       asp-route-category="@categorygame.Category.PageName">
+                                                    asp-route-game="@categorygame.Game.PageName"
+                                                    asp-route-category="@categorygame.Category.PageName">
                                                         <span class="sub-item">@categorygame.Category.Name</span>
                                                     </a>
                                                 </li>
@@ -271,27 +271,17 @@
                             </span>
                             <h4 class="text-section">Supplies</h4>
                         </li>
-                        <li class="nav-item">
-                            <a asp-area="user" asp-controller="data" asp-action="roduct" asp-route-category="playmats">
-                                <i class="fas fa-angle-right"></i>
-                                <p>Playmats</p>
-                                <span class="badge badge-secondary">1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="user" asp-controller="data" asp-action="roduct" asp-route-category="sleeves">
-                                <i class="fas fa-angle-right"></i>
-                                <p>Card Sleeves</p>
-                                <span class="badge badge-success">2</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="user" asp-controller="data" asp-action="roduct" asp-route-category="dices">
-                                <i class="fas fa-angle-right"></i>
-                                <p>Dice</p>
-                                <span class="badge badge-secondary">1</span>
-                            </a>
-                        </li>
+
+                        @foreach(var supply in ViewBag.Supplies)
+                        {
+                            <li class="nav-item">
+                                <a asp-area="user" asp-controller="data" asp-action="product" asp-route-category="@supply.PageName">
+                                    <i class="fas fa-angle-right"></i>
+                                    <p>@supply.Name</p>
+                                    <span class="badge badge-secondary">1</span>
+                                </a>
+                            </li>
+                        }
 
                         @* More Section *@
                         <li class="nav-section">

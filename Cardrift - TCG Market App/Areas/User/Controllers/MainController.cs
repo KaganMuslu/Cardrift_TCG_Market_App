@@ -1,6 +1,7 @@
 ﻿using Cardrift___TCG_Market_App.Data;
 using Cardrift___TCG_Market_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Cardrift___TCG_Market_App.Areas.User.Controllers
@@ -47,7 +48,7 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 var game5 = new Game
                 {
                     Name = "Cardfight: Vanguard",
-                    PageName = "Cardfight:Vanguard",
+                    PageName = "CardfightVanguard",
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/18/Vg_new_logo.png"
                 };
                 var game6 = new Game
@@ -147,7 +148,7 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 var categorygame1 = new CategoryGame
                 {
                     CategoryId = 1,
-                    GameId = 1
+                    GameId = 2
                 };
 
                 _context.Add(card1);
@@ -156,6 +157,12 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 _context.Add(categorygame1);
 
                 _context.SaveChanges();
+
+                ViewBag.Games = _context.Games.ToList();
+                ViewBag.CategoryGame = _context.CategoryGames
+                    .Include(cg => cg.Game)
+                    .Include(cg => cg.Category)
+                    .ToList();
             }
 
             return View();

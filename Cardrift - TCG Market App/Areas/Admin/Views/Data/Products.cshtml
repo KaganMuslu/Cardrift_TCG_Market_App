@@ -107,7 +107,14 @@
                             <a href="#"> @product.Name </a>
                         </h3>
                         <div>
-                            <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            @if (product.Game != null)
+                            {
+                                <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            }
+                            else
+                            {
+                                <div class="title" style="font-weight:bold">-</div>
+                            }
                             <div class="title" style="font-weight:bold">@product.Category.Name</div>
                         </div>
                         <div class="row user-stats text-center">

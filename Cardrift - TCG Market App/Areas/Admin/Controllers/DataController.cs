@@ -163,6 +163,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 game.ImageUrl = "/images/" + fileName;
             }
 
+            game.PageName = new string(game.Name
+                .Where(c => Char.IsLetterOrDigit(c))    // Yalnızca harf ve rakamları al
+                .ToArray())
+                .ToLower();
+
             _context.Add(game);
             _context.SaveChanges();
 
@@ -207,6 +212,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
                 // URL'yi güncelle
                 game.ImageUrl = "/images/" + fileName;
             }
+
+            game.PageName = new string(game.Name
+                .Where(c => Char.IsLetterOrDigit(c))    // Yalnızca harf ve rakamları al
+                .ToArray())
+                .ToLower();
 
             _context.Update(game);
             _context.SaveChanges();
@@ -253,6 +263,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         {
             ModelState.Remove("ImageFile");
             ModelState.Remove("Category");
+            ModelState.Remove("GameId");
 
             if (!ModelState.IsValid)
             {
@@ -443,7 +454,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
-        #region Cards Section
+    #region Cards Section
 
         public IActionResult Cards(int page, string? searchTerm, string? game, string? set, string? rarity)
         {
@@ -592,6 +603,7 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddCategory(Category category)
         {
+            ModelState.Remove("PageName");
             if (!ModelState.IsValid)
             {
                 return View(category);
@@ -604,6 +616,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
                 return View(category);
             }
+
+            category.PageName = new string(category.Name
+                .Where(c => Char.IsLetterOrDigit(c))    // Yalnızca harf ve rakamları al
+                .ToArray())
+                .ToLower();
 
             _context.Add(category);
             _context.SaveChanges();
@@ -634,6 +651,11 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
                 return View(category);
             }
+
+            category.PageName = new string(category.Name
+                .Where(c => Char.IsLetterOrDigit(c))    // Yalnızca harf ve rakamları al
+                .ToArray())
+                .ToLower();
 
             _context.Update(category);
             _context.SaveChanges();

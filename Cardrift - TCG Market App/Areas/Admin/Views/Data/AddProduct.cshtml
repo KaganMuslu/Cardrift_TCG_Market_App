@@ -74,7 +74,7 @@
                                 <select class="form-select"
                                         asp-for="GameId"
                                         required>
-                                    <option value="0">None</option>
+                                    <option>None</option>
                                     @foreach (var game in ViewBag.Games)
                                     {
                                         <option value="@game.Id">@game.Name</option>

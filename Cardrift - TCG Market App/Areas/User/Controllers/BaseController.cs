@@ -21,6 +21,9 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
                 .Include(cg => cg.Game)
                 .Include(cg => cg.Category)
                 .ToList();
+            ViewBag.Supplies = _context.Categories
+                .Where(x => !x.CategoryGames.Any(c => c.CategoryId == x.Id))
+                .ToList();
         }
     }
 }

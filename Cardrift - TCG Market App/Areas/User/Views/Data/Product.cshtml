@@ -79,19 +79,19 @@
                     {
                         <div class="zoom">
                             <img id="zoomImage_@product.Id"
-                                 src="@product.ImageUrl"
-                                 alt="@product.Name image cap"
-                                 class="card-img-top"
-                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                            src="@product.ImageUrl"
+                            alt="@product.Name image cap"
+                            class="card-img-top"
+                            style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
                         </div>
                     }
                     else
                     {
                         <div class="zoom">
                             <img src="https://lykrepair.com/wp-content/uploads/2021/07/no-image.png"
-                                 alt="@product.Name image cap"
-                                 class="card-img-top"
-                                 style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
+                            alt="@product.Name image cap"
+                            class="card-img-top"
+                            style="width: 200px; height: auto; max-height: 200px; object-fit: contain; border-radius: 10px;" />
                         </div>
                     }
 
@@ -100,7 +100,14 @@
                             <a href="#"> @product.Name </a>
                         </h3>
                         <div>
-                            <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            @if(product.Game != null)
+                            {
+                                <div class="title" style="font-weight:bold">@product.Game.Name</div>
+                            }
+                            else
+                            {
+                                <div class="title" style="font-weight:bold">-</div>
+                            }
                             <div class="title" style="font-weight:bold">@product.Category.Name</div>
                         </div>
                         <div class="row user-stats text-center">
