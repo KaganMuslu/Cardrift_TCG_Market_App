@@ -12,18 +12,11 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
         }
 
 
-        [Route("products")]
-        public IActionResult Product()
-        {
-            var products = _context.Products.ToList();
-
-            return View(products);
-        }
-
         [Route("products/{category}")]
         public IActionResult Product(string category)
         {
             ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.CategoryNow = category;
             var products = _context.Products.Where(x => x.Category.PageName == category).ToList();
 
             return View(products);
@@ -33,7 +26,9 @@ namespace Cardrift___TCG_Market_App.Areas.User.Controllers
         public IActionResult Product(string game, string category)
         {
             ViewBag.Categories = _context.Categories.ToList();
-            
+            ViewBag.CategoryNow = category;
+            ViewBag.GameNow = game;
+
             var products = _context.Products.Where(x => x.Game.PageName == game && x.Category.PageName == category).ToList();
 
             return View(products);

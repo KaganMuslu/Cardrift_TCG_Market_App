@@ -11,9 +11,19 @@
         <div class="d-flex align-items-center" style="gap: 10px; width: 100%;">
             <!-- Home -->
             <div>
-                <a asp-controller="data" asp-action="products" class="btn btn-primary">
-                    <i class="fa fa-home"></i> Home
-                </a>
+                @if (ViewBag.GameNow == null)
+                {
+                    <a asp-area="user" asp-controller="data" asp-action="products" asp-route-category="ViewBag.CategoryNow" class="btn btn-primary">
+                        <i class="fa fa-home"></i> Home
+                    </a>
+                }
+                else
+                {
+                    <a asp-area="user" asp-controller="data" asp-action="products" asp-route-game="ViewBag.GameNow" asp-route-category="ViewBag.CategoryNow" class="btn btn-primary">
+                        <i class="fa fa-home"></i> Home
+                    </a>
+                }
+                
             </div>
 
             <!-- Search -->

@@ -781,5 +781,18 @@ namespace Cardrift___TCG_Market_App.Areas.Admin.Controllers
 
         #endregion
 
+        #region User Updates
+
+        public IActionResult AllUsers()
+        {
+            return View();
+        }
+
+        public IActionResult UsersTransactions()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }
